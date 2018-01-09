@@ -1,0 +1,126 @@
+Screens & User Flows for Each User Story
+
+1. What does the user see?
+2. What do they do?
+3. What doe they see next (after doing that thing)?
+
+Register for an account
+- Screen: for registering for an account
+- User Flow:
+	1. A place to enter info for registering
+	2. User enters required information for an account (i.e. first and last name, valid email address, and password)
+	3. A place to login
+
+Login to an account
+- Screen: for logging in
+- User Flow:
+	1. A place to login
+	2. Enter valid login information
+	3. Home screen were a user can choose what to view next (i.e. calendar, logs, or lists)
+
+Add events to calendar
+- Screen: of a calendar with options of adding events to it
+- User Flow:
+	1. An option for adding an event
+	2. Choose to add event and then add details (i.e. time, date, location, type/name of event)
+	3. Save event to calendar... then they can see event on calendar
+
+Delete event(s) from calendar
+- Screen: that shows event with option for deleting it
+- User Flow: 
+	1. The selected event
+	2. Select option to delete event
+	3. See the updated calendar
+
+Update event(s) on calendar
+- Screen: that shows event with an option to edit/update event
+- User Flow:
+	1. The selected event
+	2. Select option to edit event and edit event as desired
+	3. Save edited event and then see updated calendar
+
+Organize calendar as desired
+- Screen: calendar home page
+- User Flow: 
+	1. Calendar home page
+	2. Choose how to view calendar (i.e. daym week, or month)
+	3. Save changes and view updated calendar
+
+Look at events on Calendar
+- Screen: of home page
+- User Flow:
+	1. Home screen showing options to view calendar, logs, and lists
+	2. Select to view calendar
+	3. Decide how to view the calendar (i.e. week, day, month)
+
+Create a list
+- Screen: of lists home page
+- User Flow:
+	1. The lists home page
+	2. Select option to create lists and input info about list (i.e. date, title, etc...) then enter items into list
+	3. Save list and return to list home page
+
+Add a pic/style to a specific list
+- Screen: list home page
+- User Flow:
+	1. The list home page
+	2. Select desired list, upload photo, or use stock photos as background for list
+	3. Save changes and return to list home page
+
+Delete a list/category
+- Screen: List home page
+- User Flow:
+	1. The list home page
+	2. Select desired list and delete it
+	3. The updated list home page
+
+Update a list
+- Screen: List home page
+- User Flow:
+	1. The list home page
+	2. Select desired list and update
+	3. Save changes and view updated list home page
+
+Organize lists as desired
+- Screen: List home page
+- User Flow:
+	1. The list home page
+	2. Be able to arrange lists in grids (alphabetically, topically, relationally, etc...)
+	3. Save changes and then view updated list home page
+
+View list home page
+- Screen: of home page
+- User Flow:
+	1. Home page showing options to view calendar, logs, and lists
+	2. Select to view lists
+	3. Look at a selected list or return to look at list home page and select a different one
+
+Create a log for a goal
+- Screen: logs home page
+- User Flow:
+	1. The logs home page
+	2. Select option to create a new log enter info (date, title, etc...), then specify frequency of log (daily,
+	   weekly, monthly, bi-monthly, quarterly)
+	3. Save changes and return to logs home page
+
+Update log for goals
+- Screen: Logs home page
+- User Flow:
+	1. The logs home page
+	2. Select desired log (either update info or plave check mark for completion of task)
+	3. Save changes and return to logs of home page
+
+Delete log
+- Screen: Logs home page
+- User Flow:
+	1. The logs home page
+	2. Select desired log and delete
+	3. View updated logs home page
+
+View app home page (calendar, logs, and lists organized as desired)
+- Screen: App home page
+- User Flow:
+	1. The app home page
+	2. Look at home page
+	3. Select a category to view, update, create, or delete
+

@@ -1,0 +1,29 @@
+App Purpose:
+A highly, customizeable, organizational application.
+
+App Idea:
+The app is a customizeable planner.  The user can keep track of any and everything they might want to for the day, week,
+month, or even year.  The basic layout of the app will allow the user to store specific events and day-to-day tasks in the
+calendar, but it also allows for the user to store other information (i.e. reading, eating, and excercising habits, to-do
+lists, grocery lists, year-end goals, weekly goals, movies to watch, books to read, etc...). All while allowing the user
+to organize these ideas and lists in a way that makes sense to them.
+
+User Story:
+As a user I should be able to...
+1. Register for an account
+2. Login to my account
+3. Reset my password (if lost/stolen)
+4. Add events to my calendar
+5. Delete events from my calendar
+6. Update events on my calendar
+7. Look at events on my calendar
+8. Create a list/category of anything I can dream of (to-do, grocery, hw, baby names, movies, mousic, websites, recipes
+   etc...)
+9. Add a pic/style for my specific list/category
+10. Store my list/category in a way that makes sense to me (alphabetically, topically, relationally, etc...)
+11. Remove a list/category
+12. Update a list/category
+13. Look at a list/category
+14. Organize/view my calendar by day, week, month, year
+15. Create daily, weekly, monthly, or even yearly logs for different goals (i.e. eating, excercising, reading, etc...)
+16. View a homepage that has my calendar and lists/categories organized as desired
