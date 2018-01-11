@@ -16,9 +16,10 @@ describe ('server', function() {
 
 	it('should return a 200 status code and HTML on GET', function () {
 	  return chai.request(app)
-	  .get('/')
+	  .get('/') 
 	  .then(function(res) {
 	    res.should.have.status(200);
+	    res.text.should.be.a('string')
 	  });
 	});
 });
