@@ -79,10 +79,10 @@ describe('Auth endpoints', function() {
 			return chai
 			  .request(app)
 			  .post('/api/auth/login')
-			  .send({email, passwordL 'wrongPassword'})
+			  .send({email, password: 'wrongPassword'})
 			  .then(() =>
 			  	expect.fail(null, null, 'Request should not succeed')
-			  );
+			  )
 			  .catch(err => {
 			  	if (err instanceof chai.AssertionError) {
 			  		throw err;
@@ -101,7 +101,7 @@ describe('Auth endpoints', function() {
 			  	expect(res).to.have.status(200);
 			  	expect(res.body).to.be.an('object');
 			  	const token = res.body.authToken;
-			  	expect(token).to.be.a.('string');
+			  	expect(token).to.be.a('string');
 			  	const payload = jwt.verify(token, JWT_SECRET, {
 			  		algorithm: ['HS256']
 			  	});
