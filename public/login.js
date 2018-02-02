@@ -1,4 +1,4 @@
-$('.loginForm').on('submit', function(event) {
+$('#loginForm').on('submit', function(event) {
 	event.preventDefault();
 
 	const email = $('#email').val();
@@ -7,7 +7,7 @@ $('.loginForm').on('submit', function(event) {
 	const settings = {
 	url: 'http://localhost:8080/api/auth/login',
 	data: JSON.stringify({
-		email: email,
+		username: email,
 		password: pWord
 		}),
 	dataType: 'json',
@@ -18,7 +18,9 @@ $('.loginForm').on('submit', function(event) {
 	},
 	success: function(response) {
 		console.log(response);
-		// window.location = "login.html";
+		localStorage.setItem("userToken", response.authToken);
+		localStorage.setItem("userId", response.userId);
+		window.location = "dashboard.html";
 	}
 	}
 

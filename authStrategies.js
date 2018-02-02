@@ -7,7 +7,6 @@ const {User} = require('./models/userModel.js');
 const {JWT_SECRET} = require('./config');
 
 const localStrategy = new LocalStrategy((email, password, callback) => {
-	console.log('anything I want')
 	let user;
 	User.findOne({email: email})
 	  .then(_user => {
