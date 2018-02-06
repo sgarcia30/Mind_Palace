@@ -22,16 +22,22 @@ router.get('/', (req, res) => {
 
 // Will need help with this as well.
 router.get('/list', (req, res) => {
-		User
-		    .lists.find()
-		    .limit(10)
-		    .then(lists => {
-				res.json(lists)
-		    })
-		    .catch(err => {
-		      console.error(err);
-		      res.status(500).json({ message: 'Internal server error' });
-		    });
+	// Not sure how to get the userId from the front end
+	User.findById(id, function (err, doc) {
+		//want to have code here that will allow me to
+		//pull the list the user just posted and send
+		//that data back as a json object. 
+	})
+
+	// User.lists.find()
+	//     .limit(10)
+	//     .then(lists => {
+	// 		res.json(lists)
+	//     })
+	//     .catch(err => {
+	//       console.error(err);
+	//       res.status(500).json({ message: 'Internal server error' });
+	//     });
 });
 
 router.put('/list', (req, res) => {
@@ -41,13 +47,19 @@ const list = {
 		date: req.body.date,
 		category: req.body.category
 };
-console.log(list);
 
-User.update(
-    { _id: req.body.userId }, 
-    { $push: { lists: list} },
-    (updatedData) => res.json(updatedData)
-);
+	User.update(
+	    { _id: req.body.userId }, 
+	    { $push: { lists: list} }
+	)
+	.then( updatedData => {
+		console.log(updatedData)
+		res.json(updatedData);
+	})
+	.catch(err => {
+		console.log(err);
+		res.json(err);
+	})
 });
 
 module.exports = {router};
