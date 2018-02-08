@@ -22,7 +22,21 @@ const UserSchema = mongoose.Schema({
 		type: String,
 		default: ''
 	},
-	lists: Array,
+	lists: [{
+		title: {
+			type: String,
+			required: true
+		},
+		date: {
+			type: String,
+			required: true
+		},
+		items: Array,
+		category: {
+			type: String,
+			default: ''
+		}
+	}],
 	logs: Array
 });
 

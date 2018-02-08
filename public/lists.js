@@ -21,7 +21,8 @@ function handleSubmitButton() {
                 console.log(error)
             },
     		success: function(response) {
-                // console.log(response);
+                console.log(response);
+                localStorage.setItem('listTitle', title);
                 window.location = "listBuilding.html";
             }
     		}

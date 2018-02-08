@@ -1,42 +1,45 @@
-const getList = {
-url: 'http://localhost:8080/api/users/list',
-dataType: 'json',
-contentType: 'application/json',
-type: 'GET',
-error: function(err) {
-    console.log(err)
-},
-success: userListData()
-}
-// Make call to API with ajax
-$.ajax(getList);
+function renderListTitle() {
+    const listTitle = localStorage.getItem('listTitle');
+    $('.title').html(listTitle);
 
-function userListData(data) {
-    console.log(data);
-    listData = data;
-    // const results = renderResult();
-    // const title = titleResult();
-    // $('.title').html(title);
+    handleListBuildButton();
 }
-
-// function titleResult () {
-//     return `
-//         <h2>${title}</h2>
-//     `;
-// }
 
 function handleListBuildButton() {
     $('.listBuildForm').on('submit', function(event) {
         event.preventDefault();
         const listInput = $('#myInput').val();
-        const inputValue = renderList(listInput);
+        const inputValue = renderListInput(listInput);
 
-        $(".myList").html(inputValue);
+        $("#myList").append(inputValue);
+        $('.listBuildForm')[0].reset();
+
+        const settings = {
+            url: 'http://localhost:8080/api/users/list/build',
+            data: JSON.stringify({
+                val: listInput,
+                userId: localStorage.getItem('userId'),
+                listTitle: localStorage.getItem('listTitle')
+            }),
+            dataType: 'json',
+            contentType: 'application/json',
+            type: 'POST',
+            error: function(error) {
+                console.log(error);
+            },
+            success: function(response) {
+                console.log('does this work?')
+            }
+        }
+
+        $.ajax(settings);
     });
 }
 
-function listInput(listInput) {
+function renderListInput(listInput) {
     return `
         <li>${listInput}</li>
     `;
 }
+
+$(renderListTitle);

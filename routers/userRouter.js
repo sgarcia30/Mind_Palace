@@ -20,46 +20,65 @@ router.get('/', (req, res) => {
 	  }));
 });
 
-// Will need help with this as well.
-router.get('/list', (req, res) => {
-	// Not sure how to get the userId from the front end
-	User.findById(id, function (err, doc) {
-		//want to have code here that will allow me to
-		//pull the list the user just posted and send
-		//that data back as a json object. 
-	})
-
-	// User.lists.find()
-	//     .limit(10)
-	//     .then(lists => {
-	// 		res.json(lists)
-	//     })
-	//     .catch(err => {
-	//       console.error(err);
-	//       res.status(500).json({ message: 'Internal server error' });
-	//     });
-});
-
 router.put('/list', (req, res) => {
-// How do I import the user that's currently logged in?
-const list = {
-	    title: req.body.title,
-		date: req.body.date,
-		category: req.body.category
-};
+	// How do I import the user that's currently logged in?
+	const list = {
+		    title: req.body.title,
+			date: req.body.date,
+			category: req.body.category
+	};
 
 	User.update(
 	    { _id: req.body.userId }, 
 	    { $push: { lists: list} }
 	)
-	.then( updatedData => {
+	.then( (updatedData) => {
 		console.log(updatedData)
 		res.json(updatedData);
 	})
 	.catch(err => {
-		console.log(err);
+		// console.log(err);
 		res.json(err);
 	})
 });
+
+router.post('/list/build', (req, res) => {
+	// console.log(req.body)
+	// User.find({_id: req.body.userId, 'lists.title': req.body.listTitle})
+	// .then(result => {
+	// 	console.log(result)
+	// }) 
+
+	User
+	.findOneAndUpdate({_id: req.body.userId, 'lists.title': req.body.listTitle},
+		// explain the '{new: true}' part?
+		{$push: {"items": req.body.val}},
+		{new: true})
+	.then(user => {
+		console.log(user)
+		res.status(200).json(user)
+	})
+	.catch(err => {
+		console.log(err)
+		res.status(500)
+	})
+})
+
+ //        	User.findById(req.body.userId)
+	// .find({lists:
+	// 	{ title: req.body.title	}
+	// })
+	// .then( userList => {
+	// 	console.log(userList);
+	// })
+
+router.get('/:userId/list', (req, res) => {
+	User
+	.findOne({_id: req.params.userId})
+	.then(user => {
+		console.log(user);
+		res.json(user);
+	})
+})
 
 module.exports = {router};
