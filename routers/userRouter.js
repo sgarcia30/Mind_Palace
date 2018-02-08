@@ -2,123 +2,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const {User} = require('./models');
+const {User} = require('../models/userModel');
 
 const router = express.Router();
 
+// do I need this line of code?
 const jsonParser = bodyParser.json();
 
-// Post to register a new user
-router.post('/', jsonParser, (req, res) => {
-	const requiredFields = ['email', 'password'];
-	const missingField = requiredFields.find(field => !(field in req.body));
 
-	if(missingField) {
-		return res.status(422).json({
-			code: 422,
-			reason: 'ValidationError',
-			message: 'Missing field',
-			location: missingField
-		});
-	};
-
-	const stringFields = ['email', 'password', 'firstName', 'lastName'];
-	const nonStringField = stringFields.find(field =>
-		(field in req.body) && typeof req.body[field] !== 'string'
-		);
-
-	if(nonStringField) {
-		return res.status(422).json({
-			code: 422,
-			reason: 'ValidationError',
-			message: 'Incorrect field type: expected string',
-			location: nonStringField
-		});
-	};
-
-	const explicitlyTrimmedFields = ['email', 'password'];
-	const nonTrimmedField = explicitlyTrimmedFields.find(field =>
-		req.body[field].trim() !== req.body[field]
-		);
-
-	if(nonTrimmedField) {
-		return res.status(422).json({
-			code: 422,
-			reason: 'ValidationError',
-			message: 'Cannot start or end with whitespace',
-			location: nonTrimmedField
-		});
-	};
-
-	const sizedFields = {
-		email: {
-			min: 1
-		},
-		password: {
-			min: 10,
-			max: 72
-		}
-	};
-
-	const tooSmallField = Object.keys(sizedFields).find(
-		field =>
-		  'min' in sizedFields[field] &&
-		        req.body[field].trim().length < sizedFields[field].min
-	);
-
-	if(tooSmallField || tooLargeField) {
-		return res.status(422).json({
-			code: 422,
-			reason: 'ValidationError',
-			message: tooSmallField
-			  ? `Must be at least ${sizedFields[tooSmallField]
-			    .min} characters long`
-			  : `Must be at most ${sizedFields[tooLargeField]
-			    .max} characters long`,
-			location: tooSmallField || tooLargeField
-		});
-	}
-
-	let {email, password, firstName = '', lastName = ''} = req.body;
-
-	firstName = firstName.trim();
-	lastName = lastName.trim();
-
-	return User.find({email})
-		.count()
-		.then(count => {
-			if(count > 0) {
-				return Promise.reject({
-					code: 422,
-					reason: 'ValidationError',
-					message: 'Email already used',
-					location: 'email'
-				});
-			}
-
-			return User.hashPassword(password);
-		})
-		.then(hash => {
-			return User.create({
-				email,
-				password: hash,
-				firstName,
-				lastName
-			});
-		})
-		.then(user => {
-			return res.status(201).json(user.serialize());
-		})
-		.catch(err => {
-			if(err.reason === 'ValidationError') {
-				return res.status(err.code).json(err);
-			}
-			res.status(500).json({
-				code: 500,
-				message: 'Internal server error'
-			});
-		});
-});
+router.use(bodyParser.json());
 
 router.get('/', (req, res) => {
 	return User.find()
@@ -127,5 +19,66 @@ router.get('/', (req, res) => {
 	  	message: 'Internal server error'
 	  }));
 });
+
+router.put('/list', (req, res) => {
+	// How do I import the user that's currently logged in?
+	const list = {
+		    title: req.body.title,
+			date: req.body.date,
+			category: req.body.category
+	};
+
+	User.update(
+	    { _id: req.body.userId }, 
+	    { $push: { lists: list} }
+	)
+	.then( (updatedData) => {
+		console.log(updatedData)
+		res.json(updatedData);
+	})
+	.catch(err => {
+		// console.log(err);
+		res.json(err);
+	})
+});
+
+router.post('/list/build', (req, res) => {
+	// console.log(req.body)
+	// User.find({_id: req.body.userId, 'lists.title': req.body.listTitle})
+	// .then(result => {
+	// 	console.log(result)
+	// }) 
+
+	User
+	.findOneAndUpdate({_id: req.body.userId, 'lists.title': req.body.listTitle},
+		// explain the '{new: true}' part?
+		{$push: {"items": req.body.val}},
+		{new: true})
+	.then(user => {
+		console.log(user)
+		res.status(200).json(user)
+	})
+	.catch(err => {
+		console.log(err)
+		res.status(500)
+	})
+})
+
+ //        	User.findById(req.body.userId)
+	// .find({lists:
+	// 	{ title: req.body.title	}
+	// })
+	// .then( userList => {
+	// 	console.log(userList);
+	// })
+
+router.get('/:userId/list', (req, res) => {
+	User
+	.findOne({_id: req.params.userId})
+	.then(user => {
+		console.log(user);
+		res.json(user);
+	})
+})
 
 module.exports = {router};

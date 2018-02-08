@@ -21,7 +21,23 @@ const UserSchema = mongoose.Schema({
 	lastName: {
 		type: String,
 		default: ''
-	}
+	},
+	lists: [{
+		title: {
+			type: String,
+			required: true
+		},
+		date: {
+			type: String,
+			required: true
+		},
+		items: Array,
+		category: {
+			type: String,
+			default: ''
+		}
+	}],
+	logs: Array
 });
 
 UserSchema.methods.serialize = function () {
@@ -32,13 +48,13 @@ UserSchema.methods.serialize = function () {
 	};
 };
 
-// UserSchema.methods.validatePassword = function(password) {
-// 	return bcrypt.compare(password, this.password);
-// };
+UserSchema.methods.validatePassword = function(password) {
+	return bcrypt.compare(password, this.password);
+};
 
-// UserSchema.statics.hashPassword = function(password) {
-// 	return bcrypt.hash(password, 10);
-// };
+UserSchema.statics.hashPassword = function(password) {
+	return bcrypt.hash(password, 10);
+};
 
 const User = mongoose.model('User', UserSchema);
 
