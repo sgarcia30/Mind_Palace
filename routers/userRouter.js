@@ -1,7 +1,7 @@
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const uuivd1 = require('uuid');
 const {User} = require('../models/userModel');
 
 const router = express.Router();
@@ -25,7 +25,8 @@ router.put('/list', (req, res) => {
 	const list = {
 		    title: req.body.title,
 			date: req.body.date,
-			category: req.body.category
+			category: req.body.category,
+			listId: uuivd1()
 	};
 
 	User.update(

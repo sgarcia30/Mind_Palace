@@ -19,7 +19,8 @@ function handleListBuildButton() {
             data: JSON.stringify({
                 val: listInput,
                 userId: localStorage.getItem('userId'),
-                listTitle: localStorage.getItem('listTitle')
+                listTitle: localStorage.getItem('listTitle'),
+                listId: localStorage.getItem('listId')
             }),
             dataType: 'json',
             contentType: 'application/json',
