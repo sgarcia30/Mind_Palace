@@ -21,14 +21,23 @@ router.get('/', (req, res) => {
 });
 
 router.put('/list', (req, res) => {
-	// How do I import the user that's currently logged in?
 	const list = {
-		    title: req.body.title,
-			date: req.body.date,
-			category: req.body.category,
-			listId: uuidv1()
+	    title: req.body.title,
+		date: req.body.date,
+		category: req.body.category,
+		listId: uuidv1()
 	};
 
+	User.findOne({_id: req.body.userId})
+	.then(user => {
+		const lists = user.lists;
+		lists.forEach(item => {
+			console.log(item.title);
+			console.log(list.title);
+			if (item.title === list.title) {
+				res.json({message: 'List already exists'});
+			}
+		})
 	User.update(
 	    { _id: req.body.userId }, 
 	    { $push: { lists: list} }
@@ -39,6 +48,7 @@ router.put('/list', (req, res) => {
 	.catch(err => {
 		// console.log(err);
 		res.json(err);
+	})
 	})
 });
 
@@ -59,9 +69,8 @@ router.post('/list/build', (req, res) => {
 })
 
 router.get('/:userId/lists/:listId', (req, res) => {
-	// can I do this without having to search the users list for the desired list?
 	User
-	.findOne({_id: req.params.userId, 'lists.listId': req.params.listId})
+	.find({_id: req.params.userId})
 	.then(user => {
 		const userLists = user.lists;
 		const desList = userLists.find(list => {

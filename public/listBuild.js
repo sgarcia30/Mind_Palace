@@ -11,7 +11,7 @@ const settings = {
     },
     success: displayListItems
 }
-
+// should this be at the bottome of the file?
 $.ajax(settings);
 
 function displayListItems(data) {
