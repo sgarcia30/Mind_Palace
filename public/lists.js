@@ -26,4 +26,5 @@ function renderListVal(val) {
 		<li>${val}</li>`
 }
 
+// should this be under the settings variable?
 $.ajax(settings);

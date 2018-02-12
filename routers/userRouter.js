@@ -1,7 +1,7 @@
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
-const uuivd1 = require('uuid');
+const uuidv1 = require('uuid/v1');
 const {User} = require('../models/userModel');
 
 const router = express.Router();
@@ -26,7 +26,7 @@ router.put('/list', (req, res) => {
 		    title: req.body.title,
 			date: req.body.date,
 			category: req.body.category,
-			listId: uuivd1()
+			listId: uuidv1()
 	};
 
 	User.update(
@@ -34,8 +34,7 @@ router.put('/list', (req, res) => {
 	    { $push: { lists: list} }
 	)
 	.then( (updatedData) => {
-		console.log(updatedData)
-		res.json(updatedData);
+		res.json(list);
 	})
 	.catch(err => {
 		// console.log(err);
@@ -44,34 +43,37 @@ router.put('/list', (req, res) => {
 });
 
 router.post('/list/build', (req, res) => {
-	// console.log(req.body)
-	// User.find({_id: req.body.userId, 'lists.title': req.body.listTitle})
-	// .then(result => {
-	// 	console.log(result)
-	// }) 
-
 	User
-	.findOneAndUpdate({_id: req.body.userId, 'lists.title': req.body.listTitle},
+	.findOneAndUpdate({_id: req.body.userId, 'lists.listId': req.body.listId},
 		// explain the '{new: true}' part?
-		{$push: {"items": req.body.val}},
+		{$push: {"lists.$.items": req.body.val}},
 		{new: true})
 	.then(user => {
-		console.log(user)
-		res.status(200).json(user)
+		// console.log('User ====', user);
+		res.status(200).json(user);
 	})
 	.catch(err => {
-		console.log(err)
-		res.status(500)
+		console.log(err);
+		res.status(500);
 	})
 })
 
- //        	User.findById(req.body.userId)
-	// .find({lists:
-	// 	{ title: req.body.title	}
-	// })
-	// .then( userList => {
-	// 	console.log(userList);
-	// })
+router.get('/:userId/lists/:listId', (req, res) => {
+	// can I do this without having to search the users list for the desired list?
+	User
+	.findOne({_id: req.params.userId, 'lists.listId': req.params.listId})
+	.then(user => {
+		const userLists = user.lists;
+		const desList = userLists.find(list => {
+			return list.listId === req.params.listId;
+		})
+		res.json(desList);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500);
+	})
+})
 
 router.get('/:userId/list', (req, res) => {
 	User

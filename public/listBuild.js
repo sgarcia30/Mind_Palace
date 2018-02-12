@@ -1,3 +1,27 @@
+const userId = localStorage.getItem('userId');
+const listId = localStorage.getItem('listId');
+
+const settings = {
+    url: `http://localhost:8080/api/users/${userId}/lists/${listId}`,
+    dataType: 'json',
+    contentType: 'application/json',
+    type: 'GET',
+    error: function(error) {
+        console.log(error)
+    },
+    success: displayListItems
+}
+
+$.ajax(settings);
+
+function displayListItems(data) {
+    const listItems = data.items;
+    listItems.forEach(item => {
+        const result = renderListInput(item);
+        $('#myList').append(result);
+    })
+}
+
 function renderListTitle() {
     const listTitle = localStorage.getItem('listTitle');
     $('.title').html(listTitle);
@@ -18,9 +42,9 @@ function handleListBuildButton() {
             url: 'http://localhost:8080/api/users/list/build',
             data: JSON.stringify({
                 val: listInput,
-                userId: localStorage.getItem('userId'),
+                userId: userId,
                 listTitle: localStorage.getItem('listTitle'),
-                listId: localStorage.getItem('listId')
+                listId: listId
             }),
             dataType: 'json',
             contentType: 'application/json',
@@ -29,7 +53,7 @@ function handleListBuildButton() {
                 console.log(error);
             },
             success: function(response) {
-                console.log('does this work?')
+                console.log(response.lists)
             }
         }
 
