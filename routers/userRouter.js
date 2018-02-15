@@ -70,7 +70,7 @@ router.post('/list/build', (req, res) => {
 
 router.get('/:userId/lists/:listId', (req, res) => {
 	User
-	.find({_id: req.params.userId})
+	.findOne({_id: req.params.userId})
 	.then(user => {
 		const userLists = user.lists;
 		const desList = userLists.find(list => {
@@ -88,7 +88,6 @@ router.get('/:userId/list', (req, res) => {
 	User
 	.findOne({_id: req.params.userId})
 	.then(user => {
-		console.log(user);
 		res.json(user);
 	})
 })

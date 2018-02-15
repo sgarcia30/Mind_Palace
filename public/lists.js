@@ -11,20 +11,28 @@ const settings = {
 	success: getListTitles
 }
 
+$.ajax(settings);
+
 function getListTitles(data) {
 	const lists = data.lists;
 	
 	lists.forEach( function(list) {
 		const listTitle = list.title;
-		const val = renderListVal(listTitle);
+		const listId = list.listId;
+		const val = renderListVal(listTitle, listId);
 		$('.listVals').append(val);
 	})
 }
 
-function renderListVal(val) {
+function renderListVal(title, listId) {
 	return `
-		<li>${val}</li>`
+		<li class="listTitle" data-id="${listId}" data-name="${title}">${title}</li>`
 }
 
-// should this be under the settings variable?
-$.ajax(settings);
+$('.listVals').on('click', '.listTitle', function()  {
+	const listId = $(this).attr("data-id");
+	const listTitle = $(this).attr("data-name");
+	localStorage.setItem('listId', listId);
+	localStorage.setItem('listTitle', listTitle);
+	window.location = "listBuilding.html";	
+})
