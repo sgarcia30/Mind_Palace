@@ -92,4 +92,25 @@ router.get('/:userId/list', (req, res) => {
 	})
 })
 
+router.delete('/:userId/lists/:listId', (req, res) => {
+	User
+	.findOne({_id: req.params.userId})
+	.then(user => {
+		const userLists = user.lists;
+		userLists.find(list => {
+			if (list.listId === req.params.listId) {
+				console.log(list);
+				list = null;
+				
+			}
+		})
+		console.log(`Deleted desired list \`${req.params.listId}\``);
+    	res.status(204).end();
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500);
+	})
+})
+
 module.exports = {router};
