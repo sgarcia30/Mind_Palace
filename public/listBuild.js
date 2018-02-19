@@ -63,8 +63,34 @@ function handleListBuildButton() {
 
 function renderListInput(listInput) {
     return `
-        <li>${listInput}</li>
+        <li class="list-item" data-name="${listInput}">${listInput} <button class="list-item-delete">Delete</button></li>
     `;
 }
+
+$('ul').on('click', ".list-item", function(event) {
+    $(this).toggleClass('list-item__checked');
+});
+
+$('ul').on('click', '.list-item-delete', function(event) {
+    const listItem = $(this).closest('li').attr("data-name");
+    const itemIndex = $(this).closest('li').index();
+    console.log(itemIndex);
+    $(this).parents('li').remove();
+
+    const settings = {
+        url: `http://localhost:8080/api/users/${userId}/lists/${listId}/items/${itemIndex}`,
+        dataType: 'json',
+        contentType: 'application/json', 
+        type: 'DELETE', //maybe it should be POST (cause we're updating)?
+        error: function (error) {
+            console.log(error)
+        },
+        success: function(response) {
+            console.log(response)
+        }
+    }
+
+    $.ajax(settings);
+});
 
 $(renderListTitle);

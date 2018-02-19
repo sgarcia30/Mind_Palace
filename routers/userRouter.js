@@ -32,8 +32,6 @@ router.put('/list', (req, res) => {
 	.then(user => {
 		const lists = user.lists;
 		lists.forEach(item => {
-			console.log(item.title);
-			console.log(list.title);
 			if (item.title === list.title) {
 				res.json({message: 'List already exists'});
 			}
@@ -46,7 +44,6 @@ router.put('/list', (req, res) => {
 		res.json(list);
 	})
 	.catch(err => {
-		// console.log(err);
 		res.json(err);
 	})
 	})
@@ -94,18 +91,29 @@ router.get('/:userId/list', (req, res) => {
 
 router.delete('/:userId/lists/:listId', (req, res) => {
 	User
-	.findOne({_id: req.params.userId})
-	.then(user => {
-		const userLists = user.lists;
-		userLists.find(list => {
-			if (list.listId === req.params.listId) {
-				console.log(list);
-				list = null;
-				
-			}
-		})
+	.findOneAndUpdate({_id: req.params.userId},
+		{$pull: {lists: {listId: req.params.listId} }})
+	.then(list => {
 		console.log(`Deleted desired list \`${req.params.listId}\``);
     	res.status(204).end();
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500);
+	})
+})
+
+router.delete('/:userId/lists/:listId/items/:itemIndex', (req, res) => {
+	const userId = req.params.userId;
+	const listId = req.params.listId;
+	const itemIndex = req.params.itemIndex;
+
+	User
+	.findOneAndUpdate({_id: req.body.userId, 'lists.listId': req.body.listId},
+		{ $pull : ['lists.$.items[${itemIndex}]'] })
+	.then(user => {
+		console.log(user);
+		res.status(200).json(user);
 	})
 	.catch(err => {
 		console.log(err);

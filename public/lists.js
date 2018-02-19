@@ -42,6 +42,7 @@ $('.listVals').on('click', '.delete-list', function()  {
 	const listTitle = $(this).closest('li').attr("data-name");
 	localStorage.setItem('listId', listId);
 	localStorage.setItem('listTitle', listTitle);
+	$(this).parents('li').remove();
 	
 	const settings = {
 	url: `http://localhost:8080/api/users/${userId}/lists/${listId}`,
