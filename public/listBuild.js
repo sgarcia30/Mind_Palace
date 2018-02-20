@@ -63,7 +63,7 @@ function handleListBuildButton() {
 
 function renderListInput(listInput) {
     return `
-        <li class="list-item" data-name="${listInput}">${listInput} <button class="list-item-delete">Delete</button></li>
+        <li class="list-item" data-name="${listInput}"><button class="list-item-delete">Delete</button><div class="listVal">${listInput}</div></li>
     `;
 }
 

@@ -109,11 +109,18 @@ router.delete('/:userId/lists/:listId/items/:itemIndex', (req, res) => {
 	const itemIndex = req.params.itemIndex;
 
 	User
-	.findOneAndUpdate({_id: req.body.userId, 'lists.listId': req.body.listId},
-		{ $pull : ['lists.$.items[${itemIndex}]'] })
+	.findOne({_id: req.params.userId})
 	.then(user => {
-		console.log(user);
-		res.status(200).json(user);
+		const userLists = user.lists;
+		const desList = userLists.find(list => {
+			return list.listId === req.params.listId
+		})
+		const desItems = desList.items;
+		desItems.splice(itemIndex, 1);
+		user.save()
+		.then(updatedUser => {
+			res.status(204).json(updatedUser)
+		})
 	})
 	.catch(err => {
 		console.log(err);
