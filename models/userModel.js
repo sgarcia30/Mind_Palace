@@ -37,6 +37,25 @@ const UserSchema = mongoose.Schema({
 			default: ''
 		}
 	}],
+	events: [{
+		name: {
+			type: String,
+			required: true
+		},
+		date: {
+			type: String,
+			required: true
+		},
+		startTime: {
+			type: String,
+			default: ''
+		},
+		endTime: {
+			type: String,
+			default: ''
+		},
+		eventId: String
+	}],
 	logs: Array
 });
 

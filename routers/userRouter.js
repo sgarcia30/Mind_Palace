@@ -21,7 +21,6 @@ router.get('/', (req, res) => {
 });
 
 router.put('/list', (req, res) => {
-	// How do I import the user that's currently logged in?
 	const list = {
 		    title: req.body.title,
 			date: req.body.date,
@@ -38,21 +37,13 @@ router.put('/list', (req, res) => {
 		res.json(updatedData);
 	})
 	.catch(err => {
-		// console.log(err);
 		res.json(err);
 	})
 });
 
 router.post('/list/build', (req, res) => {
-	// console.log(req.body)
-	// User.find({_id: req.body.userId, 'lists.title': req.body.listTitle})
-	// .then(result => {
-	// 	console.log(result)
-	// }) 
-
 	User
 	.findOneAndUpdate({_id: req.body.userId, 'lists.title': req.body.listTitle},
-		// explain the '{new: true}' part?
 		{$push: {"items": req.body.val}},
 		{new: true})
 	.then(user => {
@@ -65,20 +56,35 @@ router.post('/list/build', (req, res) => {
 	})
 })
 
- //        	User.findById(req.body.userId)
-	// .find({lists:
-	// 	{ title: req.body.title	}
-	// })
-	// .then( userList => {
-	// 	console.log(userList);
-	// })
-
 router.get('/:userId/list', (req, res) => {
 	User
 	.findOne({_id: req.params.userId})
 	.then(user => {
 		console.log(user);
 		res.json(user);
+	})
+})
+
+router.post('/calendar', (req, res) => {
+	const event = {
+		    name: req.body.name,
+			date: req.body.date,
+			startTime: req.body.startTime,
+			endTime: req.body.endTime,
+			eventId: uuivd1()
+	};
+
+	User
+	.findOneAndUpdate({_id: req.body.userId},
+		{$push: {events: event}},
+		{new: true})
+	.then(user => {
+		console.log(user)
+		res.status(200).json(user)
+	})
+	.catch(err => {
+		console.log(err)
+		res.status(500)
 	})
 })
 

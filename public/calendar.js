@@ -1,11 +1,40 @@
+$('.eventForm').on('submit', function (event) {
+    event.preventDefault();
+
+    const eventName = $('#eventName').val();
+    const date = $('#date').val();
+    const startTime = $('#startTime').val();
+    const endTime = $('#endTime').val();
+    const userId = localStorage.getItem('userId');
+    $('.eventForm')[0].reset();
+
+    const settings = {
+        url: 'http://localhost:8080/api/users/calendar',
+        data: JSON.stringify({
+            name: eventName,
+            date: date,
+            startTime: startTime,
+            endTime: endTime,
+            userId: userId
+        }),
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'POST',
+        error: function(error) {
+            console.log(error);
+        },
+        success: function(response) {
+            console.log(response);
+        }
+    }
+
+    $.ajax(settings);
+})
+
 // Call this from the developer console and you can control both instances
 var calendars = {};
 
 $(document).ready( function() {
-    // Assuming you've got the appropriate language files,
-    // clndr will respect whatever moment's language is set to.
-    // moment.locale('ru');
-
     // Here's some magic to make sure the dates are happening this month.
     var thisMonth = moment().format('YYYY-MM');
     // Events to load into calendar
