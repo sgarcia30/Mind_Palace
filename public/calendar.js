@@ -1,3 +1,20 @@
+const userId = localStorage.getItem('userId');
+
+const settings = {
+    url: `http://localhost:8080/api/users/${userId}/calendar`,
+    dataType: 'json',
+    contentType: 'application/json',
+    type: 'GET',
+    error: function(error) {
+        console.log(error);
+    },
+    success: function(response) {
+        console.log(response);
+    }
+}
+
+$.ajax(settings);
+
 $('.eventForm').on('submit', function (event) {
     event.preventDefault();
 
@@ -24,7 +41,10 @@ $('.eventForm').on('submit', function (event) {
             console.log(error);
         },
         success: function(response) {
-            console.log(response);
+            // should I reload the page here, so it will retrieve the latest
+            // event from the user?  If so, would I do that by simply using
+            // window.location = "calendar.html";
+            window.location = `http://localhost:8080/api/users/${response.redirect}`;
         }
     }
 

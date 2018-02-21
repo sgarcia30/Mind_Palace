@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const uuivd1 = require('uuid');
 const {User} = require('../models/userModel');
+const path = require('path');
 
 const router = express.Router();
 
@@ -86,6 +87,24 @@ router.post('/calendar', (req, res) => {
 		console.log(err)
 		res.status(500)
 	})
+})
+
+router.get('/:userId/calendar', (req, res) => {
+	User
+	.findOne({_id: req.params.userId})
+	.then(user => {
+		const events = user.events;
+		console.log(events);
+		res.json({events: events, redirect: '/calendar'});
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500);
+	})
+}) 
+
+router.get('/calendar', (req, res) => {
+	res.sendFile(path.resolve('./public/calendar.html'));
 })
 
 module.exports = {router};
