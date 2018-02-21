@@ -26,7 +26,7 @@ function getListTitles(data) {
 
 function renderListVal(title, listId) {
 	return `
-		<li class="listTitle" data-id="${listId}" data-name="${title}">${title} <button class="edit-list">Edit</button> <button class="delete-list">Delete</button></li>`
+		<li class="listTitle" data-id="${listId}" data-name="${title}">${title} <button class="delete-list">Delete</button> <button class="edit-list">Edit</button> </li>`
 }
 
 $('.listVals').on('click', '.edit-list', function()  {
