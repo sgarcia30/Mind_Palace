@@ -38,21 +38,25 @@ const UserSchema = mongoose.Schema({
 		}
 	}],
 	events: [{
-		name: {
+		title: {
 			type: String,
 			required: true
 		},
-		date: {
+		startDate: {
+			type: String,
+			required: true
+		},
+		endDate: {
 			type: String,
 			required: true
 		},
 		startTime: {
 			type: String,
-			default: ''
+			required: true
 		},
 		endTime: {
 			type: String,
-			default: ''
+			required: true
 		},
 		eventId: String
 	}],

@@ -1,56 +1,3 @@
-const userId = localStorage.getItem('userId');
-
-const settings = {
-    url: `http://localhost:8080/api/users/${userId}/calendar`,
-    dataType: 'json',
-    contentType: 'application/json',
-    type: 'GET',
-    error: function(error) {
-        console.log(error);
-    },
-    success: function(response) {
-        console.log(response);
-    }
-}
-
-$.ajax(settings);
-
-$('.eventForm').on('submit', function (event) {
-    event.preventDefault();
-
-    const eventName = $('#eventName').val();
-    const date = $('#date').val();
-    const startTime = $('#startTime').val();
-    const endTime = $('#endTime').val();
-    const userId = localStorage.getItem('userId');
-    $('.eventForm')[0].reset();
-
-    const settings = {
-        url: 'http://localhost:8080/api/users/calendar',
-        data: JSON.stringify({
-            name: eventName,
-            date: date,
-            startTime: startTime,
-            endTime: endTime,
-            userId: userId
-        }),
-        dataType: 'json',
-        contentType: 'application/json',
-        type: 'POST',
-        error: function(error) {
-            console.log(error);
-        },
-        success: function(response) {
-            // should I reload the page here, so it will retrieve the latest
-            // event from the user?  If so, would I do that by simply using
-            // window.location = "calendar.html";
-            window.location = `http://localhost:8080/api/users/${response.redirect}`;
-        }
-    }
-
-    $.ajax(settings);
-})
-
 // Call this from the developer console and you can control both instances
 var calendars = {};
 
@@ -58,20 +5,62 @@ $(document).ready( function() {
     // Here's some magic to make sure the dates are happening this month.
     var thisMonth = moment().format('YYYY-MM');
     // Events to load into calendar
-    var eventArray = [
-        {
-            title: 'Multi-Day Event',
-            endDate: thisMonth + '-14',
-            startDate: thisMonth + '-10'        
-        }, {
-            endDate: thisMonth + '-23',
-            startDate: thisMonth + '-21',
-            title: 'Another Multi-Day Event'
-        }, {
-            date: thisMonth + '-27',
-            title: 'Single Day Event'
+    var eventArray = [];
+
+    const userId = localStorage.getItem('userId');
+
+    const settings = {
+        url: `http://localhost:8080/api/users/${userId}/calendar`,
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'GET',
+        error: function(error) {
+            console.log(error);
+        },
+        success: function(response) {
+            console.log(response);
+            eventArray.push(response);
         }
-    ];
+    }
+
+    $.ajax(settings);
+
+    $('.eventForm').on('submit', function (event) {
+        event.preventDefault();
+
+        const eventName = $('#eventName').val();
+        const startDate = $('#startDate').val();
+        const endDate = $('#endDate').val();
+        const startTime = $('#startTime').val();
+        const endTime = $('#endTime').val();
+        const userId = localStorage.getItem('userId');
+        $('.eventForm')[0].reset();
+        $('.modal').modal('toggle'); 
+
+        const settings = {
+            url: 'http://localhost:8080/api/users/calendar',
+            data: JSON.stringify({
+                title: eventName,
+                startDate: startDate,
+                endDate: endDate,
+                startTime: startTime,
+                endTime: endTime,
+                userId: userId
+            }),
+            dataType: 'json',
+            contentType: 'application/json',
+            type: 'POST',
+            error: function(error) {
+                console.log(error);
+            },
+            success: function(response) {
+                console.log(response);
+                eventArray.push(response.events);
+            }
+        }
+
+        $.ajax(settings);
+    })
 
     // The order of the click handlers is predictable. Direct click action
     // callbacks come first: click, nextMonth, previousMonth, nextYear,

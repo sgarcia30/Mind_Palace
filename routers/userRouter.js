@@ -68,8 +68,9 @@ router.get('/:userId/list', (req, res) => {
 
 router.post('/calendar', (req, res) => {
 	const event = {
-		    name: req.body.name,
-			date: req.body.date,
+		    title: req.body.title,
+			startDate: req.body.startDate,
+			endDate: req.body.endDate,
 			startTime: req.body.startTime,
 			endTime: req.body.endTime,
 			eventId: uuivd1()
@@ -95,16 +96,12 @@ router.get('/:userId/calendar', (req, res) => {
 	.then(user => {
 		const events = user.events;
 		console.log(events);
-		res.json({events: events, redirect: '/calendar'});
+		res.json(events);
 	})
 	.catch(err => {
 		console.log(err);
 		res.status(500);
 	})
 }) 
-
-router.get('/calendar', (req, res) => {
-	res.sendFile(path.resolve('./public/calendar.html'));
-})
 
 module.exports = {router};

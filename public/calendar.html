@@ -21,15 +21,19 @@
             <label for="eventName">Event</label>
             <input type="text" size="35" name="eventName" id="eventName" required/>
             <br>
-            <label for="date">Date</label>
-            <input type="date" name="date" id="date" required/>
+            <label for="startDate">Start Date</label>
+            <input type="date" name="startDate" id="startDate" required/>
+            <br>
+            <label for="endDate">End Date</label>
+            <input type="date" name="endDate" id="endDate" />
             <br>
             <label for="startTime">Start Time</label>
-            <input type="time" name="startTime" id="startTime" />
+            <input type="time" name="startTime" id="startTime" required/>
+            <br>
             <label for="endTime">End Time</label>
             <input type="time" name="endTime" id="endTime" />
           </fieldset>
-          <button>Create</button>
+          <button rel="modal:close">Create</button>
         </form>
         </div>
         <!-- Link to open the modal -->
