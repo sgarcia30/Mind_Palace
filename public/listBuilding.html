@@ -4,26 +4,29 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Lists</title>
-    <link href="" rel="stylesheet" type="text/css" />
+    <link href="listBuild.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <section class="list">
-      <h2 class="title"></h2>
-      <form class="listBuildForm">
-        <fieldset name="listBuilding">
-          <input type="text" id="myInput" placeholder="List item...">
-        </fieldset>
-        <button class="addButton">Add</button>
-      </form>
-
-      <ul id="myList">
-        
-      </ul>
-    </section>
-    <section class="navigation">
-      <a href="lists.html"><button>List Dashboard</button></a>
-    </section>
-
+    <nav role="navigation" class="banner">
+      <h1 class="title"></h2>
+      <a href="lists.html">List Dashboard</a>
+      <a href="login.html">Logout</a>
+    </nav>
+    <main role="main">
+      <section class="search">
+        <form class="listBuildForm">
+          <fieldset name="listBuilding">
+            <input type="text" id="myInput" placeholder="List item...">
+            <button class="addButton">Add</button>
+          </fieldset>          
+        </form>
+      </section>
+      <section class="list">
+        <ul id="myList">
+          
+        </ul>
+      </section>
+    </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="listBuild.js"></script>
   </body>

@@ -43,7 +43,7 @@ Organize calendar as desired
 - Screen: calendar home page
 - User Flow: 
 	1. Calendar home page
-	2. Choose how to view calendar (i.e. daym week, or month)
+	2. Choose how to view calendar (i.e. day, week, or month)
 	3. Save changes and view updated calendar
 
 Look at events on Calendar

@@ -1,7 +1,7 @@
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
-const uuivd1 = require('uuid');
+const uuidv1 = require('uuid/v1');
 const {User} = require('../models/userModel');
 const path = require('path');
 
@@ -23,37 +23,62 @@ router.get('/', (req, res) => {
 
 router.put('/list', (req, res) => {
 	const list = {
-		    title: req.body.title,
-			date: req.body.date,
-			category: req.body.category,
-			listId: uuivd1()
+	    title: req.body.title,
+		date: req.body.date,
+		category: req.body.category,
+		listId: uuidv1()
 	};
 
+	User.findOne({_id: req.body.userId})
+	.then(user => {
+		const lists = user.lists;
+		lists.forEach(item => {
+			if (item.title === list.title) {
+				res.json({message: 'List already exists'});
+			}
+		})
 	User.update(
 	    { _id: req.body.userId }, 
 	    { $push: { lists: list} }
 	)
 	.then( (updatedData) => {
-		console.log(updatedData)
-		res.json(updatedData);
+		res.json(list);
 	})
 	.catch(err => {
 		res.json(err);
+	})
 	})
 });
 
 router.post('/list/build', (req, res) => {
 	User
-	.findOneAndUpdate({_id: req.body.userId, 'lists.title': req.body.listTitle},
-		{$push: {"items": req.body.val}},
+	.findOneAndUpdate({_id: req.body.userId, 'lists.listId': req.body.listId},
+		// explain the '{new: true}' part?
+		{$push: {"lists.$.items": req.body.val}},
 		{new: true})
 	.then(user => {
-		console.log(user)
-		res.status(200).json(user)
+		// console.log('User ====', user);
+		res.status(200).json(user);
 	})
 	.catch(err => {
-		console.log(err)
-		res.status(500)
+		console.log(err);
+		res.status(500);
+	})
+})
+
+router.get('/:userId/lists/:listId', (req, res) => {
+	User
+	.findOne({_id: req.params.userId})
+	.then(user => {
+		const userLists = user.lists;
+		const desList = userLists.find(list => {
+			return list.listId === req.params.listId;
+		})
+		res.json(desList);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500);
 	})
 })
 
@@ -61,8 +86,46 @@ router.get('/:userId/list', (req, res) => {
 	User
 	.findOne({_id: req.params.userId})
 	.then(user => {
-		console.log(user);
 		res.json(user);
+	})
+})
+
+router.delete('/:userId/lists/:listId', (req, res) => {
+	User
+	.findOneAndUpdate({_id: req.params.userId},
+		{$pull: {lists: {listId: req.params.listId} }})
+	.then(list => {
+		console.log(`Deleted desired list \`${req.params.listId}\``);
+    	res.status(204).end();
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500);
+	})
+})
+
+router.delete('/:userId/lists/:listId/items/:itemIndex', (req, res) => {
+	const userId = req.params.userId;
+	const listId = req.params.listId;
+	const itemIndex = req.params.itemIndex;
+
+	User
+	.findOne({_id: req.params.userId})
+	.then(user => {
+		const userLists = user.lists;
+		const desList = userLists.find(list => {
+			return list.listId === req.params.listId
+		})
+		const desItems = desList.items;
+		desItems.splice(itemIndex, 1);
+		user.save()
+		.then(updatedUser => {
+			res.status(204).json(updatedUser)
+		})
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500);
 	})
 })
 
@@ -102,6 +165,6 @@ router.get('/:userId/calendar', (req, res) => {
 		console.log(err);
 		res.status(500);
 	})
-}) 
+})
 
 module.exports = {router};

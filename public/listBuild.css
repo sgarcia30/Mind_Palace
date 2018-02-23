@@ -101,20 +101,20 @@ nav {
 }
 
 nav > a {
-  font-size: 22px;
-  color: purple;
+  font-size: 18px;
   padding-right: 22px;
   position: relative;
   display: inline-block;
-  top: -57px;
-}
-
-a > button {
+  top: -50px;
   font-family: system-ui;
   font-weight: 350;
-  font-size: 12px;
-  padding: 2px;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+nav > a:hover {
+  text-decoration: underline;
 }
 
 h1 {
@@ -125,7 +125,6 @@ h1 {
   font-weight: 300;
   font-size: 30px;
   margin-top: 9px;
-
 }
 
 main {

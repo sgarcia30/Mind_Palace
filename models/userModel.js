@@ -35,6 +35,10 @@ const UserSchema = mongoose.Schema({
 		category: {
 			type: String,
 			default: ''
+		},
+		listId: {
+			type: String,
+			required: true
 		}
 	}],
 	events: [{

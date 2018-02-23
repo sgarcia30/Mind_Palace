@@ -21,10 +21,14 @@ function handleSubmitButton() {
                 console.log(error)
             },
     		success: function(response) {
-                console.log(response);
-                localStorage.setItem('listId', response.listId);
-                localStorage.setItem('listTitle', title);
-                window.location = "listBuilding.html";
+                if (response.message) {
+                    alert(response.message);
+                }
+                else {
+                    localStorage.setItem('listId', response.listId);
+                    localStorage.setItem('listTitle', title);
+                    window.location = "listBuilding.html";
+                }
             }
     		}
 

@@ -11,19 +11,51 @@ const settings = {
 	success: getListTitles
 }
 
+$.ajax(settings);
+
 function getListTitles(data) {
 	const lists = data.lists;
 	
 	lists.forEach( function(list) {
 		const listTitle = list.title;
-		const val = renderListVal(listTitle);
+		const listId = list.listId;
+		const val = renderListVal(listTitle, listId);
 		$('.listVals').append(val);
 	})
 }
 
-function renderListVal(val) {
+function renderListVal(title, listId) {
 	return `
-		<li>${val}</li>`
+		<li class="listTitle" data-id="${listId}" data-name="${title}">${title} <button class="delete-list">Delete</button> <button class="edit-list">Edit</button> </li>`
+}
+
+$('.listVals').on('click', '.edit-list', function()  {
+	const listId = $(this).closest('li').attr("data-id");
+	const listTitle = $(this).closest('li').attr("data-name");
+	localStorage.setItem('listId', listId);
+	localStorage.setItem('listTitle', listTitle);
+	window.location = "listBuilding.html";	
+})
+
+$('.listVals').on('click', '.delete-list', function()  {
+	const listId = $(this).closest('li').attr("data-id");
+	const listTitle = $(this).closest('li').attr("data-name");
+	localStorage.setItem('listId', listId);
+	localStorage.setItem('listTitle', listTitle);
+	$(this).parents('li').remove();
+	
+	const settings = {
+	url: `http://localhost:8080/api/users/${userId}/lists/${listId}`,
+	dataType: 'json',
+	contentType: 'application/json',
+	type: 'DELETE',
+	error: function(error) {
+		console.log(error);
+	},
+	success: function(response) {
+		console.log(response);
+	}
 }
 
 $.ajax(settings);
+})
