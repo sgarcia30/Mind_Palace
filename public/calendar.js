@@ -2,76 +2,23 @@
 var calendars = {};
 
 $(document).ready( function() {
+
     // Here's some magic to make sure the dates are happening this month.
     var thisMonth = moment().format('YYYY-MM');
     // Events to load into calendar
     var eventArray = [];
 
-    const userId = localStorage.getItem('userId');
-
-    const settings = {
-        url: `http://localhost:8080/api/users/${userId}/calendar`,
-        dataType: 'json',
-        contentType: 'application/json',
-        type: 'GET',
-        error: function(error) {
-            console.log(error);
-        },
-        success: function(response) {
-            console.log(response);
-            eventArray.push(response);
-        }
-    }
-
-    $.ajax(settings);
-
-    $('.eventForm').on('submit', function (event) {
-        event.preventDefault();
-
-        const eventName = $('#eventName').val();
-        const startDate = $('#startDate').val();
-        const endDate = $('#endDate').val();
-        const startTime = $('#startTime').val();
-        const endTime = $('#endTime').val();
-        const userId = localStorage.getItem('userId');
-        $('.eventForm')[0].reset();
-        $('.modal').modal('toggle'); 
-
-        const settings = {
-            url: 'http://localhost:8080/api/users/calendar',
-            data: JSON.stringify({
-                title: eventName,
-                startDate: startDate,
-                endDate: endDate,
-                startTime: startTime,
-                endTime: endTime,
-                userId: userId
-            }),
-            dataType: 'json',
-            contentType: 'application/json',
-            type: 'POST',
-            error: function(error) {
-                console.log(error);
-            },
-            success: function(response) {
-                console.log(response);
-                eventArray.push(response.events);
-            }
-        }
-
-        $.ajax(settings);
-    })
-
-    // The order of the click handlers is predictable. Direct click action
-    // callbacks come first: click, nextMonth, previousMonth, nextYear,
-    // previousYear, nextInterval, previousInterval, or today. Then
-    // onMonthChange (if the month changed), inIntervalChange if the interval
-    // has changed, and finally onYearChange (if the year changed).
+    // Calendar setup
     calendars.clndr1 = $('.cal1').clndr({
-        events: eventArray,
+        // events: eventArray,
         clickEvents: {
             click: function (target) {
-                console.log('Cal-1 clicked: ', target);
+                target.events.forEach(event => {
+                  $('.event-details').append(`
+                    <p>${event.title}</p>
+                  `)
+                })
+                // console.log('Cal-1 clicked: ', target.events);
             },
             today: function () {
                 console.log('Cal-1 today');
@@ -113,20 +60,98 @@ $(document).ready( function() {
         adjacentDaysChangeMonth: false
     });
 
-    // Bind all clndrs to the left and right arrow keys
-    $(document).keydown( function(e) {
-        // Left arrow
-        if (e.keyCode == 37) {
-            calendars.clndr1.back();
-            calendars.clndr2.back();
-            calendars.clndr3.back();
+    // Get user events
+    const userId = localStorage.getItem('userId');
+
+    const settings = {
+        url: `http://localhost:8080/api/users/${userId}/calendar`,
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'GET',
+        error: function(error) {
+            console.log(error);
+        },
+        success: function(events) {
+            calendars.clndr1.addEvents(events);
+        }
+    }
+
+    $.ajax(settings);
+
+    // Create user event
+    $('.eventForm').on('submit', function (event) {
+        event.preventDefault();
+
+        const eventName = $('#eventName').val();
+        const startDate = $('#startDate').val();
+        const endDate = $('#endDate').val();
+        const startTime = $('#startTime').val();
+        const endTime = $('#endTime').val();
+        const userId = localStorage.getItem('userId');
+        $('.eventForm')[0].reset();
+        $('.modal').modal('toggle');
+
+        const settings = {
+            url: 'http://localhost:8080/api/users/calendar',
+            data: JSON.stringify({
+                title: eventName,
+                startDate: startDate,
+                endDate: endDate,
+                startTime: startTime,
+                endTime: endTime,
+                userId: userId
+            }),
+            dataType: 'json',
+            contentType: 'application/json',
+            type: 'POST',
+            error: function(error) {
+                console.log(error);
+            },
+            success: function(response) {
+              $('.modal').toggle('hide');
+              $('.blocker').hide()
+              calendars.clndr1.addEvents(response.events);
+            }
         }
 
-        // Right arrow
-        if (e.keyCode == 39) {
-            calendars.clndr1.forward();
-            calendars.clndr2.forward();
-            calendars.clndr3.forward();
-        }
-    });
+        $.ajax(settings);
+    })
 });
+
+
+
+// // If you also have single day events with a different date field,
+// // use the singleDay property and point it to the date field.
+// singleDay: 'date'
+
+// // When days from adjacent months are clicked, switch the current month.
+// // fires nextMonth/previousMonth/onMonthChange click callbacks. defaults to
+// // false.
+// adjacentDaysChangeMonth: false,
+
+// Mixing Multi- and Single-day Events
+// If you also have single-day events mixed in with different date fields, as of clndr v1.2.7 you can specify a third property of multiDayEvents called singleDay that refers to the date field for a single-day event.
+
+// var lotsOfMixedEvents = [
+//     {
+//         end: '2015-11-08',
+//         start: '2015-11-04',
+//         title: 'Monday to Friday Event'
+//     }, {
+//         end: '2015-11-20',
+//         start: '2015-11-15',
+//         title: 'Another Long Event'
+//     }, {
+//         title: 'Birthday',
+//         date: '2015-07-16'
+//     }
+// ];
+
+// $('#calendar').clndr({
+//     events: lotsOfEvents,
+//     multiDayEvents: {
+//         endDate: 'end',
+//         singleDay: 'date',
+//         startDate: 'start'
+//     }
+// });
