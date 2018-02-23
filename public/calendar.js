@@ -13,9 +13,12 @@ $(document).ready( function() {
         // events: eventArray,
         clickEvents: {
             click: function (target) {
+                console.log(target);
+                $('.events').html('');
+                $('#eventModal').modal('toggle');
                 target.events.forEach(event => {
-                  $('.event-details').append(`
-                    <p>${event.title}</p>
+                  $('.events').append(`
+                    <li>${event.title}</li>
                   `)
                 })
                 // console.log('Cal-1 clicked: ', target.events);
@@ -90,6 +93,7 @@ $(document).ready( function() {
         const userId = localStorage.getItem('userId');
         $('.eventForm')[0].reset();
         $('.modal').modal('toggle');
+        $('.blocker').hide();
 
         const settings = {
             url: 'http://localhost:8080/api/users/calendar',
@@ -118,6 +122,12 @@ $(document).ready( function() {
     })
 });
 
+$('.addEvent').on('click', function() {
+    console.log('an event');
+    $('#eventModal').modal('toggle');
+    $('.blocker').hide();
+    $('#ex1').modal('toggle');
+})
 
 
 // // If you also have single day events with a different date field,
