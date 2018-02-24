@@ -1,7 +1,7 @@
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
-const uuivd1 = require('uuid/v1');
+const uuidv1 = require('uuid/v1');
 const {User} = require('../models/userModel');
 const path = require('path');
 
@@ -26,7 +26,7 @@ router.put('/list', (req, res) => {
 	    title: req.body.title,
 		date: req.body.date,
 		category: req.body.category,
-		listId: uuivd1()
+		listId: uuidv1()
 	};
 
 	User.findOne({_id: req.body.userId})
@@ -130,14 +130,13 @@ router.delete('/:userId/lists/:listId/items/:itemIndex', (req, res) => {
 })
 
 router.post('/calendar', (req, res) => {
-	console.log(req.body);
 	const event = {
 		    title: req.body.title,
 			startDate: req.body.startDate,
 			endDate: req.body.endDate,
 			startTime: req.body.startTime,
 			endTime: req.body.endTime,
-			eventId: uuivd1()
+			eventId: uuidv1()
 	};
 
 	User
