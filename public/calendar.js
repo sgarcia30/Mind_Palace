@@ -15,7 +15,17 @@ $(document).ready( function() {
                 console.log(target);
                 $('.listEvents').html('');
                 $('#eventModal').modal('toggle');
-                target.events.forEach((event, index) => {
+                const todayEvents = target.events;
+                todayEvents.sort((event1, event2) => {
+                      if(event1.startTime < event2.startTime) {
+                        return -1;
+                      }
+                      if(event1.startTime > event2.startTime) {
+                        return 1
+                      }
+                      return 0; 
+                })
+                todayEvents.forEach((event, index) => {
                   $('.listEvents').append(`
                     <li class="eventTitle" data-id="${event.eventId}">${event.title} <button class="delete-event">Delete</button> <button class="edit-event">Edit</button></li>
                   `)
@@ -90,7 +100,8 @@ $(document).ready( function() {
         const endTime = $('#endTime').val();
         const userId = localStorage.getItem('userId');
         $('.eventForm')[0].reset();
-        $('#ex1').modal('toggle');
+        $('.modal').modal('toggle');
+        $('#eventModal').hide();
         $('.blocker').hide();
 
         const settings = {
@@ -122,8 +133,8 @@ $(document).ready( function() {
 
 // Show events for a given day when clicked on
 $('.addEvent').on('click', function() {
-    $('#eventModal').modal('toggle');
-    $('.blocker').hide();
+    // $('#eventModal').modal('toggle');
+    // $('.blocker').hide();
     $('#ex1').modal('toggle');
 })
 

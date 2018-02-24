@@ -44,6 +44,59 @@ main {
   margin-top: 76px;
 }
 
+/* Style the list items */
+ul li {
+  position: relative;
+  padding: 12px 8px 12px 10px;
+  list-style-type: decimal;
+  background: #eee;
+  font-size: 18px;
+  transition: 0.2s;
+  font-family: system-ui;
+  font-weight: 300;
+  clear: both;
+  
+  /* make the list items unselectable */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+ul li:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+/* Darker background-color on hover */
+ul li:hover {
+  background: #ddd;
+}
+
+.edit-event:hover {
+  background-color: #bbb;
+  cursor: pointer;
+}
+
+.delete-event:hover {
+  background-color: #bbb;
+  cursor: pointer;
+}
+
+.delete-event {
+  font-family: system-ui;
+  font-weight: 300;
+  font-size: 15px;
+  float: right;
+}
+
+.edit-event {
+  font-family: system-ui;
+  font-weight: 300;
+  font-size: 15px;
+  float: right;
+}
+
 .clearfix:after {
   content: ".";
   display: block;
