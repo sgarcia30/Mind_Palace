@@ -1,58 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Calendar</title>
     <link rel="stylesheet" href="/css_clndr.css">
   </head>
+
   <body>
-    <nav>
+    <!-- Navigation for Calendar Dashboard -->
+    <nav role="navigation">
       <h1>Calendar Dashboard</h1>
       <a href="dashboard.html">Dashboard</a>
       <a href="login.html">Logout</a>
     </nav>
-    <div class="container">
-      <div class="cal1"></div>
-      <div class="modal" id="eventModal">
-        <ul class='events'>
-          
-        </ul>
-        <span class="addEvent">+ Create Event</span>
-      </div>
-        <!-- Modal HTML embedded directly into document -->
-      <div id="ex1" class="modal">
-        <form class="eventForm">
-          <fieldset name="event">
-            <label for="eventName">Event</label>
-            <input type="text" size="35" name="eventName" id="eventName" required/>
-            <br>
-            <label for="startDate">Start Date</label>
-            <input type="date" name="startDate" id="startDate" required/>
-            <br>
-            <label for="endDate">End Date</label>
-            <input type="date" name="endDate" id="endDate" />
-            <br>
-            <label for="startTime">Start Time</label>
-            <input type="time" name="startTime" id="startTime" required/>
-            <br>
-            <label for="endTime">End Time</label>
-            <input type="time" name="endTime" id="endTime" />
-          </fieldset>
-          <button rel="modal:close">Create</button>
-        </form>
-        </div>
-        <!-- Link to open the modal -->
-        <p><a href="#ex1" rel="modal:open">Create Event</a></p>
-    </div>
-  	
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-    <script src="/plug-ins/clndr.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> 
-    <script src="/calendar.js"></script>
 
+    <main role="main">
+      <!-- Modal for daily events -->
+      <div class="container">
+        <div class="cal1"></div>
+        <div class="modal" id="eventModal">
+          <ul class='listEvents'>
+            
+          </ul>
+          <span class="addEvent">+ Create Event</span>
+        </div>
+
+          <!-- Modal HTML embedded directly into document -->
+        <div id="ex1" class="modal">
+          <form class="eventForm">
+            <fieldset name="event">
+              <label for="eventName">Event</label>
+              <input type="text" size="35" name="eventName" id="eventName" required/>
+              <br>
+              <label for="startDate">Start Date</label>
+              <input type="date" name="startDate" id="startDate" required/>
+              <br>
+              <label for="endDate">End Date</label>
+              <input type="date" name="endDate" id="endDate" />
+              <br>
+              <label for="startTime">Start Time</label>
+              <input type="time" name="startTime" id="startTime" required/>
+              <br>
+              <label for="endTime">End Time</label>
+              <input type="time" name="endTime" id="endTime" />
+            </fieldset>
+            <button rel="modal:close">Create</button>
+          </form>
+          </div>
+          <!-- Link to open the modal -->
+          <p><a href="#ex1" rel="modal:open">Create Event</a></p>
+      </div>
+    	
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="/plug-ins/clndr.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> 
+      <script src="/calendar.js"></script>
+      
+    </main>
   </body>
 </html>

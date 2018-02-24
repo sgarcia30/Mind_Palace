@@ -168,4 +168,21 @@ router.get('/:userId/calendar', (req, res) => {
 	})
 })
 
+router.delete('/:userId/calendar/:eventId', (req, res) => {
+	const userId = req.params.userId;
+	const eventId = req.params.eventId;
+
+	User
+	.findOneAndUpdate({_id: userId},
+		{$pull: {events: {eventId: eventId} }})
+	.then(event => {
+		console.log(`Deleted desired event \`${eventId}\``);
+    	res.status(204).end();
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500);
+	})
+})
+
 module.exports = {router};

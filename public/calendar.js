@@ -10,18 +10,16 @@ $(document).ready( function() {
 
     // Calendar setup
     calendars.clndr1 = $('.cal1').clndr({
-        // events: eventArray,
         clickEvents: {
             click: function (target) {
                 console.log(target);
-                $('.events').html('');
+                $('.listEvents').html('');
                 $('#eventModal').modal('toggle');
-                target.events.forEach(event => {
-                  $('.events').append(`
-                    <li>${event.title}</li>
+                target.events.forEach((event, index) => {
+                  $('.listEvents').append(`
+                    <li class="eventTitle" data-id="${event.eventId}">${event.title} <button class="delete-event">Delete</button> <button class="edit-event">Edit</button></li>
                   `)
                 })
-                // console.log('Cal-1 clicked: ', target.events);
             },
             today: function () {
                 console.log('Cal-1 today');
@@ -92,7 +90,7 @@ $(document).ready( function() {
         const endTime = $('#endTime').val();
         const userId = localStorage.getItem('userId');
         $('.eventForm')[0].reset();
-        $('.modal').modal('toggle');
+        $('#ex1').modal('toggle');
         $('.blocker').hide();
 
         const settings = {
@@ -122,46 +120,32 @@ $(document).ready( function() {
     })
 });
 
+// Show events for a given day when clicked on
 $('.addEvent').on('click', function() {
-    console.log('an event');
     $('#eventModal').modal('toggle');
     $('.blocker').hide();
     $('#ex1').modal('toggle');
 })
 
+// Delete a specified event
+$('.listEvents').on('click', '.delete-event', function()  {
+    const eventId = $(this).closest('li').attr("data-id");
+    localStorage.setItem('eventId', eventId);
+    $(this).parents('li').remove();
+    const userId = localStorage.getItem('userId');
+    
+    const settings = {
+    url: `http://localhost:8080/api/users/${userId}/calendar/${eventId}`,
+    dataType: 'json',
+    contentType: 'application/json',
+    type: 'DELETE',
+    error: function(error) {
+        console.log(error);
+    },
+    success: function(response) {
+        console.log(response);
+    }
+}
 
-// // If you also have single day events with a different date field,
-// // use the singleDay property and point it to the date field.
-// singleDay: 'date'
-
-// // When days from adjacent months are clicked, switch the current month.
-// // fires nextMonth/previousMonth/onMonthChange click callbacks. defaults to
-// // false.
-// adjacentDaysChangeMonth: false,
-
-// Mixing Multi- and Single-day Events
-// If you also have single-day events mixed in with different date fields, as of clndr v1.2.7 you can specify a third property of multiDayEvents called singleDay that refers to the date field for a single-day event.
-
-// var lotsOfMixedEvents = [
-//     {
-//         end: '2015-11-08',
-//         start: '2015-11-04',
-//         title: 'Monday to Friday Event'
-//     }, {
-//         end: '2015-11-20',
-//         start: '2015-11-15',
-//         title: 'Another Long Event'
-//     }, {
-//         title: 'Birthday',
-//         date: '2015-07-16'
-//     }
-// ];
-
-// $('#calendar').clndr({
-//     events: lotsOfEvents,
-//     multiDayEvents: {
-//         endDate: 'end',
-//         singleDay: 'date',
-//         startDate: 'start'
-//     }
-// });
+$.ajax(settings);
+})
