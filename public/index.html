@@ -3,29 +3,63 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Welcome</title>
+    <title>Mind Palace</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="index.css" rel="stylesheet" type="text/css" />
   </head>
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand" href="#">
-      <img src="/images/api-logo3.png" width="30" height="30" alt="logo">
+      <img src="/images/api-logo3.png" width="50" height="50" alt="logo">
+      Mind Palace
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+    <div class="collapse navbar-collapse dropdown-menu-right" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item justify-content-between">
           <a class="nav-link" href="register.html">Register<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="login.html">Login<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="login.html">Login</a>
         </li>
       </ul>
     </div>
   </nav>
+  <body>
+    <h1>Mind Overflow?</h1>
+    <div class="backgroundImg">
+      <img src="/images/api-logo-slogan.png">
+    </div>
+    <section class='app-info'>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="card">
+            <div class="card-body text-center text-white">
+              <h5 class="card-title">Organize Your Mind</h5>
+              <p class="card-text">Schedules, bill paying, grocery lists, play dates, dreams, goals, ambitions... Mind Palace allows you to take all of these aspects of your life and store them in one place.</p>
+            </div>
+          </div>
+          </div>
+          <div class="col-sm-3">
+          <div class="card text-center text-white">
+            <div class="card-body">
+              <h5 class="card-title">Create Lists</h5>
+              <p class="card-text">Mind Palace's list creation capabilities allow you to store your titles, to-do lists, and organize the clutter in your brain.</p>
+            </div>
+          </div>
+          </div> 
+          <div class="col-sm-3">
+          <div class="card text-center text-white">
+            <div class="card-body">
+              <h5 class="card-title">Create Calender Events</h5>
+              <p class="card-text">Mind Palace allows you to store your calendar events, so your schedule is readily available.</p>
+            </div>
+          </div>
+        </div>     
+    </section>
+  </body>
 
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

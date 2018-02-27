@@ -1,12 +1,15 @@
-@import url("https://fonts.googleapis.com/css?family=Raleway")
-
-html { 
-  background: url('images/ep_naturalwhite/ep_naturalwhite.png'); 
-}
+@import url("https://fonts.googleapis.com/css?family=Raleway");
 
 body { 
-  background: url('images/api-logo3.png') no-repeat center center fixed; 
-  height: 1000px;
+  background: url('/images/ep_naturalwhite/ep_naturalwhite.png'); 
+}
+
+div > img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	height: 400px;
 }
 
 .navbar {
@@ -25,4 +28,40 @@ li > a {
 li > a:hover {
 	text-decoration: underline;
 	color: inherit;
+}
+
+/*li.right {
+    position: absolute;
+    right: 0;
+}*/
+
+.nav-item {
+	text-align: right;
+}
+
+h1 {
+	text-align: center;
+	font-size: 80px;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 1000;
+}
+
+.backgroundImg {
+	margin-bottom: 100px;
+}
+
+.col-sm-3 {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 100px;
+	margin-bottom: 100px;
+}
+
+.card {
+	height: 200px;
+	background-color: #474647;
+}
+
+.row {
+	background-color: #ed6b5a;
 }
