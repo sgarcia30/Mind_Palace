@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway")
+
+html { 
+  background: url('images/ep_naturalwhite/ep_naturalwhite.png'); 
+}
+
+body { 
+  background: url('images/api-logo3.png') no-repeat center center fixed; 
+  height: 1000px;
+}
+
+.navbar {
+	background-color: #75acff
+}
+
+li {
+	font-family: 'Raleway', sans-serif;
+}
+
+li > a {
+	font-family: 'Raleway', sans-serif;
+	color: inherit;
+}
+
+li > a:hover {
+	text-decoration: underline;
+	color: inherit;
+}

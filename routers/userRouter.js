@@ -10,7 +10,6 @@ const router = express.Router();
 // do I need this line of code?
 const jsonParser = bodyParser.json();
 
-
 router.use(bodyParser.json());
 
 router.get('/', (req, res) => {
