@@ -16,6 +16,10 @@ div > img {
 	background-color: #75acff
 }
 
+#navbarSupportedContent {
+	justify-content: flex-end;
+}
+
 li {
 	font-family: 'Raleway', sans-serif;
 }

@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+
+.background-image {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 1;
+
+  display: block;
+  background: url("/images/haitao-zeng-102073-unsplash.jpg");
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+
+/*  -webkit-filter: blur(3px);
+  -moz-filter: blur(3px);
+  -o-filter: blur(3px);
+  -ms-filter: blur(3px);
+  filter: blur(3px);*/
+}
+
+.loginForm {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.FormBox {
+    background:rgba(71,70,71,0.6);
+	width: 320px;
+	height: 430px;
+	padding-left: 40px;
+	padding-right: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+}
+
+legend {
+	font-size: 40px;
+	text-align: center;
+	padding-top: 30px;
+	padding-bottom: 15px;
+	font-family: 'Raleway', sans-serif;
+	color: #f5f9f2;
+}
+
+label {
+	display: block;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	font-family: 'Raleway', sans-serif;
+	font-size: 22px;
+	color: #f5f9f2;
+}
+
+input {
+	width: 286px;
+	padding: 15px;
+	font-family: 'Raleway', sans-serif;
+	font-size: 18px;
+}
+
+.button {
+	display: block;
+	margin-top: 15px;
+	color: white;
+	background-color: #ed6b5a;
+	border-color: #ed6b5a;
+	margin-left: auto;
+	margin-right: auto;
+	font-family: 'Raleway', sans-serif;
+	font-size: 22px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.button:hover {
+
+	background-color: #008040;
+	border-color: #008040;
+}
