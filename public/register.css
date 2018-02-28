@@ -13,7 +13,7 @@
   background-size: cover;
 }
 
-.loginForm {
+.form {
   position: fixed;
   left: 0;
   right: 0;
@@ -31,7 +31,7 @@ fieldset {
 .FormBox {
     background:rgba(71,70,71,0.6);
 	width: 320px;
-	height: 430px;
+	height: 550px;
 	padding-left: 40px;
 	padding-right: 40px;
 	margin-left: auto;
@@ -40,28 +40,28 @@ fieldset {
 }
 
 legend {
-	font-size: 40px;
+	font-size: 38px;
 	text-align: center;
 	padding-top: 30px;
-	padding-bottom: 15px;
+	padding-bottom: 13px;
 	font-family: 'Raleway', sans-serif;
 	color: #f5f9f2;
 }
 
 label {
 	display: block;
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: 12px;
+	padding-bottom: 12px;
 	font-family: 'Raleway', sans-serif;
-	font-size: 22px;
+	font-size: 18px;
 	color: #f5f9f2;
 }
 
 input {
 	width: 286px;
-	padding: 15px;
+	padding: 12px;
 	font-family: 'Raleway', sans-serif;
-	font-size: 18px;
+	font-size: 16px;
 }
 
 .button {
