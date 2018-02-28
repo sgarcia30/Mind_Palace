@@ -183,4 +183,21 @@ router.delete('/:userId/calendar/:eventId', (req, res) => {
 	})
 })
 
+router.get('/:userId/calendar/:eventId', (req, res) => {
+	console.log('are we getting here?')
+	User
+	.findOne({_id: req.params.userId})
+	.then(user => {
+		const userEvents = user.events;
+		const desEvent = userEvents.find(event => {
+			return event.eventId === req.params.eventId;
+		})
+		res.json(desEvent);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500);
+	})	
+})
+
 module.exports = {router};

@@ -14,7 +14,7 @@ $(document).ready( function() {
             click: function (target) {
                 console.log(target);
                 $('.listEvents').html('');
-                $('#eventModal').modal('toggle');
+                $('#eventDetails').modal('toggle'); 
                 const todayEvents = target.events;
                 todayEvents.sort((event1, event2) => {
                       if(event1.startTime < event2.startTime) {
@@ -26,8 +26,20 @@ $(document).ready( function() {
                       return 0; 
                 })
                 todayEvents.forEach((event, index) => {
+                    console.log(event);
                   $('.listEvents').append(`
-                    <li class="eventTitle" data-id="${event.eventId}">${event.title} <button class="delete-event">Delete</button> <button class="edit-event">Edit</button></li>
+                    <li class="eventTitle" data-id="${event.eventId}">
+                        ${event.title}
+                        <button class="delete-event">Delete</button>
+                        <button class="edit-event">Edit</button>
+                        <ul class='details'>
+                            <li>${event.startDate}</li>
+                            <li>${event.endDate}</li>
+                            <li>${event.startTime}</li>
+                            <li>${event.endTime}</li>
+                        </ul>
+
+                    </li>
                   `)
                 })
             },
@@ -100,9 +112,7 @@ $(document).ready( function() {
         const endTime = $('#endTime').val();
         const userId = localStorage.getItem('userId');
         $('.eventForm')[0].reset();
-        $('.modal').modal('toggle');
-        $('#eventModal').hide();
-        $('.blocker').hide();
+
 
         const settings = {
             url: 'http://localhost:8080/api/users/calendar',
@@ -133,9 +143,7 @@ $(document).ready( function() {
 
 // Show events for a given day when clicked on
 $('.addEvent').on('click', function() {
-    // $('#eventModal').modal('toggle');
-    // $('.blocker').hide();
-    $('#ex1').modal('toggle');
+
 })
 
 // Delete a specified event
@@ -146,17 +154,50 @@ $('.listEvents').on('click', '.delete-event', function()  {
     const userId = localStorage.getItem('userId');
     
     const settings = {
-    url: `http://localhost:8080/api/users/${userId}/calendar/${eventId}`,
-    dataType: 'json',
-    contentType: 'application/json',
-    type: 'DELETE',
-    error: function(error) {
-        console.log(error);
-    },
-    success: function(response) {
-        console.log(response);
+        url: `http://localhost:8080/api/users/${userId}/calendar/${eventId}`,
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'DELETE',
+        error: function(error) {
+            console.log(error);
+        },
+        success: function(response) {
+            console.log(response);
+        }
     }
-}
 
-$.ajax(settings);
+    $.ajax(settings);
 })
+
+$('.listEvents').on('click', '.edit-event', function() {
+    // find which one I clicked on
+    const eventId = $(this).closest('li').attr('data-id');
+    localStorage.setItem('eventId', eventId);
+    const userId = localStorage.getItem('userId');
+
+    // make ajax request to get event info
+    const settings = {
+        url: `http://localhost:8080/api/users/${userId}/calendar/${eventId}`,
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'GET',
+        error: function(error) {
+            console.log(error);
+        },
+        success: function(response) {
+            console.log(response);
+        }
+    }
+
+    $.ajax(settings);
+})
+
+// show a div with inputs using jQuery (on the current modal)
+
+// input details into the the div (like a form)
+// populate event details with relevant data
+
+// listen for the form to be submitted
+// get data submitted
+// create ajax call to send it over
+// set-up an edit end point to update the data coming from the ajax
