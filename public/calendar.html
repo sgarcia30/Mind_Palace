@@ -24,6 +24,9 @@
     <div class="collapse navbar-collapse dropdown-menu-right" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <li class="nav-item">
+          <a class="nav-link" href="dashboard.html">Dashboard</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="lists.html">Lists<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
@@ -35,43 +38,38 @@
 
 
     <main role="main">
-      <!-- Link to open the modal -->
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createEvent">
-        + Create Event
+      <!-- Link to open the create event modal -->
+      <button type="button" id='createEventButton' class="btn btn-primary" data-toggle="modal" data-target="#createEvent">
+        + Add Event to Calendar
       </button>
 
 
       <div class="container">
         <div class="cal1"></div>
-          <!-- Modal HTML embedded directly into document -->
                 <!-- Modal for daily events -->
-          <div class="modal" id='eventDetails' tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Modal title</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <ul class='listEvents'>
-                
-                  </ul>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" id='addEvent' class="btn btn-primary">+ Create Event</button>
-                </div>
+        <div class="modal" id='eventDetails' tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id='dayEventDate'></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <ul class='listEvents'>
+              
+                </ul>
               </div>
             </div>
           </div>
+        </div>
 
         <div id='createEvent' class="modal" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">Create Event</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -79,22 +77,17 @@
               <div class="modal-body">
                 <form class="eventForm">
                   <fieldset name="event">
-                    <label for="eventName">Event</label>
-                    <input type="text" size="35" name="eventName" id="eventName" required/>
-                    <br>
+                    <input type="text" size="35" name="eventName" id="eventName" placeholder='Add title here' required/>
                     <label for="startDate">Start Date</label>
                     <input type="date" name="startDate" id="startDate" required/>
-                    <br>
-                    <label for="endDate">End Date</label>
+                    <label for="endDate">End Date (optional)</label>
                     <input type="date" name="endDate" id="endDate" />
-                    <br>
                     <label for="startTime">Start Time</label>
                     <input type="time" name="startTime" id="startTime" required/>
-                    <br>
                     <label for="endTime">End Time</label>
-                    <input type="time" name="endTime" id="endTime" />
+                    <input type="time" name="endTime" id="endTime" required />
                   </fieldset>
-                  <button rel="modal:close">Create</button>
+                  <button class='modCloseButton' rel="modal:close">Create</button>
                 </form>
               </div>
             </div>
@@ -107,7 +100,6 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
       <script src="/plug-ins/clndr.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<!--       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />  -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <script src="/calendar.js"></script>

@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway");
 
 body { 
-  background: url('/images/ep_naturalwhite/ep_naturalwhite.png'); 
+  background: url('/images/swirl_pattern/swirl_pattern.png');
 }
 
 div > img {
@@ -16,8 +16,21 @@ div > img {
 	background-color: #75acff
 }
 
+.navbar-brand:hover {
+  cursor: default;
+}
+
 #navbarSupportedContent {
-	justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+.nav-link {
+  font-family: 'Raleway', sans-serif;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
 }
 
 li {

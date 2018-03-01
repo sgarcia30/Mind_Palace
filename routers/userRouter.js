@@ -129,6 +129,12 @@ router.delete('/:userId/lists/:listId/items/:itemIndex', (req, res) => {
 })
 
 router.post('/calendar', (req, res) => {
+	console.log(req.body.endDate);
+	if (req.body.endDate === '') {
+		console.log('are we getting inside?')
+		req.body.endDate = req.body.startDate;
+	}
+
 	const event = {
 		    title: req.body.title,
 			startDate: req.body.startDate,
@@ -184,7 +190,6 @@ router.delete('/:userId/calendar/:eventId', (req, res) => {
 })
 
 router.get('/:userId/calendar/:eventId', (req, res) => {
-	console.log('are we getting here?')
 	User
 	.findOne({_id: req.params.userId})
 	.then(user => {
@@ -198,6 +203,30 @@ router.get('/:userId/calendar/:eventId', (req, res) => {
 		console.log(err);
 		res.status(500);
 	})	
+})
+
+// set-up an edit end point to update the data coming from the ajax
+router.put('/:userId/calendar/:eventId', (req, res) => {
+	const event = {
+	    title: req.body.title,
+		startDate: req.body.startDate,
+		endDate: req.body.endDate,
+		startTime: req.body.startTime,
+		endTime: req.body.endTime,
+		eventId: req.params.eventId
+	};
+
+	User
+	.findOneAndUpdate({_id: req.params.userId, 'events.eventId': req.params.eventId},
+		{$set: {"events.$": event}},
+		{new: true})
+	.then(user => {
+		res.status(200).json(user);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500);
+	})
 })
 
 module.exports = {router};

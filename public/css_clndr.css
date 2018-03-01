@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+
 * {
   box-sizing: border-box;
 }
@@ -72,7 +74,7 @@ h5 {
 }
 
 .cal1 {
-  margin: 30px auto;
+  margin: 0px auto;
   max-width: 600px;
   font-family: system-ui;
   font-size: 14px;
@@ -89,7 +91,8 @@ h5 {
   float: left;
   width: 33%;
   text-align: center;
-  font-size: 18px;
+  font-size: 22px;
+  font-family: 'Raleway', sans-serif;
 }
 
 .cal1 .clndr .clndr-controls .clndr-control-button {
@@ -104,6 +107,8 @@ h5 {
 
 .cal1 .clndr .clndr-controls .clndr-control-button .clndr-next-button {
   cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
   -webkit-user-select: none;
   /* Chrome/Safari */
   -moz-user-select: none;
@@ -113,7 +118,6 @@ h5 {
 }
 
 .cal1 .clndr .clndr-controls .clndr-control-button .clndr-next-button:hover {
-  /*background: #ddd;*/
   text-decoration: underline;
 }
 
@@ -128,6 +132,8 @@ h5 {
 
 .cal1 .clndr .clndr-controls .clndr-control-button .clndr-previous-button {
   cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
   -webkit-user-select: none;
   /* Chrome/Safari */
   -moz-user-select: none;
@@ -158,8 +164,7 @@ h5 {
 .cal1 .clndr .clndr-table .header-days {
   height: 30px;
   font-size: 10px;
-  /*background: #0D70A6;?\*/
-  background-color: #0066ff;
+  background-color: #474647;
 }
 
 .cal1 .clndr .clndr-table .header-days .header-day {
@@ -195,41 +200,41 @@ h5 {
 
 .cal1 .clndr .clndr-table tr .day.today,
 .cal1 .clndr .clndr-table tr .day.my-today {
-  background: #9AD6E3;
+  background: #cae5ff;
 }
 
 .cal1 .clndr .clndr-table tr .day.today:hover,
 .cal1 .clndr .clndr-table tr .day.my-today:hover {
-  background: #72c6d8;
+  background: #99ceff;
 }
 
 .cal1 .clndr .clndr-table tr .day.today.event,
 .cal1 .clndr .clndr-table tr .day.my-today.event {
-  /*background: #a7dbc1;*/
-  background: #99ff99;
+  background: #66b5ff;
 }
 .cal1 .clndr .clndr-table tr .day.today.event:hover,
 .cal1 .clndr .clndr-table tr .day.my-today.event:hover {
-  /*background: #a7dbc1;*/
-  background: #66ff66;
+  background: #339cff;
 }
 
 .cal1 .clndr .clndr-table tr .day.event,
 .cal1 .clndr .clndr-table tr .day.my-event {
-  /*background: #B4E09F;*/
-  /*background:  #4dfcff;*/
-  background: #00ECFF;
+  background: #f2988c;
 }
 
 .cal1 .clndr .clndr-table tr .day.event:hover,
 .cal1 .clndr .clndr-table tr .day.my-event:hover {
-  /*background: #96d478;*/
-  background: #00becc;
+  background: #ed6b5a;
 }
 
 .cal1 .clndr .clndr-table tr .day.inactive,
 .cal1 .clndr .clndr-table tr .day.my-inactive {
-  background: #ddd;
+  background: #d9d9d9;
+}
+
+/*Added to give cal days a white background*/
+.cal1 .clndr .clndr-table tr .day {
+  background: #ffffff;
 }
 
 .cal1 .clndr .clndr-table tr .day:last-child {
