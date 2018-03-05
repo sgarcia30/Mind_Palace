@@ -201,3 +201,7 @@ label {
 .day:hover {
   cursor: pointer;
 }
+
+.hidden {
+  display: none;
+}

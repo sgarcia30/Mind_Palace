@@ -3,15 +3,35 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Lists</title>
+    <title>Mind Palace - Lists</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="icon" href="/images/castle5.png" alt='mind-palace'>
     <link href="lists.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
 
-    <nav role='navigation', class='banner'>
-    	<h1>List Dashboard</h1>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="login.html">Logout</a>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="#">
+      <img src="/images/api-logo3.png" width="50" height="50" alt="logo">
+      Mind Palace - Lists
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse dropdown-menu-right" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="dashboard.html">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="calendar.html">Calendar<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link logout" href="login.html">Logout</a>
+          </li>
+        </ul>
+      </div>
     </nav>
 
     <main role="main">
@@ -20,18 +40,44 @@
           <h2>My Lists:</h2>
           <ul class="listVals">
 
-          </ul>        
+          </ul>   
+          <button type="button" id='createListButton' class="btn btn-primary" data-toggle="modal" data-target="#createList">
+           + Create New List
+      </button>  
         </div>
-      </section>  
-      <section class="newList">
-        <div class="nList">
-          <a href="listCreation.html">+ Create New List</a>
+      </section> 
+      <div id='createList' class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Create List</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form class="listForm">
+                <fieldset name="list">
+                    <label for="listType">Type/Title</label>
+                    <input placeholder="Movies to watch, favorite recipes, baby names, etc..." type="text" size="35" name="listType" id="listType" required/>
+                    <label for="date">Date</label>
+                    <input placeholder="11/11/11" type="text" name="date" id="date" required/>
+                    <label for="category">Category</label>
+                    <input placeholder="To-Do, Shopping, Dreams, etc.." type="text" name="category" id="category" size="35" />
+                  </fieldset>
+                  <button class='modCloseButton' rel="modal:close">Create</button>
+                </form>
+            </div>
+          </div>
         </div>
-      </section>
+      </div> 
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="lists.js"></script>
+    <script src="logout.js"></script>
 
   </body>
 </html>

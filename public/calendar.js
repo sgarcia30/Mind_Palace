@@ -1,5 +1,6 @@
 // Call this from the developer console and you can control both instances
 var calendars = {};
+const userId = localStorage.getItem('userId');
 
 $(document).ready( function() {
 
@@ -24,19 +25,19 @@ $(document).ready( function() {
                       }
                       return 0; 
                 })
-                $('#dayEventDate').html(`${target.date._d}`)
+                $('#dayEventDate').html(`${moment(target.date._d).format('ddd MMM DD YYYY')}`)
                 todayEvents.forEach((event, index) => {
                     console.log(event);
                     $('.listEvents').append(`
                     <li class="eventTitle" data-id="${event.eventId}">
-                        ${event.title}
+                        <span class='eTitle'>${event.title}</span>
                         <button class="delete-event">Delete</button>
                         <button class="edit-event">Edit</button>
                         <ul class='details'>
-                            <li>Date(s): ${event.startDate} - ${event.endDate}</li>
-                            <li>Time: ${event.startTime} - ${event.endTime}</li>
+                            <li>Time: ${moment(event.startTime).format('HH:mm')} - ${moment(event.endTime).format('HH:mm')}</li>
+                            <li>Date(s): ${moment(event.startDate).format('MM-DD')} - ${moment(event.endDate).format('MM-DD')}</li>
                         </ul>
-                        <form class="updateEventForm">
+                        <form class="updateEventForm hidden">
                           <fieldset name="update">
                             <input type='hidden' class='editEventId' />
                             <input type="text" size="35" name="eventNameUpdate" class="eventNameUpdate" placeholder='Add title here' required/>
@@ -65,23 +66,26 @@ $(document).ready( function() {
         adjacentDaysChangeMonth: false
     });
 
-    // Get user events
-    const userId = localStorage.getItem('userId');
 
-    const settings = {
-        url: `http://localhost:8080/api/users/${userId}/calendar`,
-        dataType: 'json',
-        contentType: 'application/json',
-        type: 'GET',
-        error: function(error) {
-            console.log(error);
-        },
-        success: function(events) {
-            calendars.clndr1.addEvents(events);
+
+    function getEvents() {
+        const settings = {
+            url: `http://localhost:8080/api/users/${userId}/calendar`,
+            dataType: 'json',
+            contentType: 'application/json',
+            type: 'GET',
+            error: function(error) {
+                console.log(error);
+            },
+            success: function(events) {
+                console.log(events);
+                calendars.clndr1.addEvents(events);
+            }
         }
+
+        $.ajax(settings);
     }
 
-    $.ajax(settings);
 
     // Create user event
     $('.eventForm').on('submit', function (event) {
@@ -119,110 +123,124 @@ $(document).ready( function() {
 
         $.ajax(settings);
     })
-});
 
-// Show events for a given day when clicked on
-$('.addEvent').on('click', function() {
+    // Delete a specified event
+    $('.listEvents').on('click', '.delete-event', function()  {
+        const eventId = $(this).closest('li').attr("data-id");
 
-})
+        calendars.clndr1.removeEvents(function (event) {
+            return event.eventId == eventId;
+        });
 
-// Delete a specified event
-$('.listEvents').on('click', '.delete-event', function()  {
-    const eventId = $(this).closest('li').attr("data-id");
-    localStorage.setItem('eventId', eventId);
-    $(this).parents('li').remove();
-    const userId = localStorage.getItem('userId');
-    
-    const settings = {
-        url: `http://localhost:8080/api/users/${userId}/calendar/${eventId}`,
-        dataType: 'json',
-        contentType: 'application/json',
-        type: 'DELETE',
-        error: function(error) {
-            console.log(error);
-        },
-        success: function(response) {
-            console.log(response);
+        localStorage.setItem('eventId', eventId);
+        $(this).closest('li').remove();
+        console.log(eventId);
+        const userId = localStorage.getItem('userId');
+        
+        const settings = {
+            url: `http://localhost:8080/api/users/${userId}/calendar/${eventId}`,
+            dataType: 'json',
+            contentType: 'application/json',
+            type: 'DELETE',
+            error: function(error) {
+                console.log(error);
+            },
+            success: function(response) {
+                console.log(response);
+            }
         }
-    }
 
-    $.ajax(settings);
-})
-
-$('.listEvents').on('click', '.edit-event', function() {
-    // find which one I clicked on
-    const eventId = $(this).closest('li').attr('data-id');
-    localStorage.setItem('eventId', eventId);
-    const userId = localStorage.getItem('userId');
-
-    // make ajax request to get event info
-    const settings = {
-        url: `http://localhost:8080/api/users/${userId}/calendar/${eventId}`,
-        dataType: 'json',
-        contentType: 'application/json',
-        type: 'GET',
-        error: function(error) {
-            console.log(error);
-        },
-        success: renderEventDetailstoEdit
-    }
-
-    $.ajax(settings);
-})
-
-// show a div with inputs using jQuery (on the current modal)
-function renderEventDetailstoEdit(eventDetails) {
-    // input details into the the div (like a form)
-    // populate event details with relevant data
-    $('.editEventId').val(eventDetails.eventId);
-    $('.eventNameUpdate').val(eventDetails.title);
-    $('.startDateUpdate').val(eventDetails.startDate);
-    $('.endDateUpdate').val(eventDetails.endDate);
-    $('.startTimeUpdate').val(eventDetails.startTime);
-    $('.endTimeUpdate').val(eventDetails.endTime);
-}
-
-// listen for the form to be submitted
-// get data submitted
-// create ajax call to send it over
-$('.listEvents').on('submit', '.updateEventForm', function(event) {
-    event.preventDefault();
-    
-    const title = $('.eventNameUpdate').val();
-    const startDate = $('.startDateUpdate').val();
-    const endDate = $('.endDateUpdate').val();
-    const startTime = $('.startTimeUpdate').val();
-    const endTime = $('.endTimeUpdate').val();
-    const eventId = $('.editEventId').val();
-    const userId = localStorage.getItem('userId');
-    localStorage.setItem('eventId', eventId);
-
-    const settings = {
-        url: `http://localhost:8080/api/users/${userId}/calendar/${eventId}`,
-        data: JSON.stringify({
-            title: title,
-            startDate: startDate,
-            endDate: endDate,
-            startTime: startTime,
-            endTime: endTime
-        }),
-        dataType: 'json',
-        contentType: 'application/json',
-        type: 'PUT',
-        error: function(error) {
-            console.log(error);
-        },
-        success: updateEventUI
-    }
-
-    $.ajax(settings);
-})
-
-function updateEventUI(user) {
-    const eventId = localStorage.getItem('eventId');
-    const userEvents = user.events;
-    const desEvent = userEvents.find(event => {
-        return event.eventId === eventId;
+        $.ajax(settings);
     })
 
-}
+    $('.listEvents').on('click', '.edit-event', function() {
+        // find which one I clicked on
+        const eventId = $(this).closest('li').attr('data-id');
+        localStorage.setItem('eventId', eventId);
+        const userId = localStorage.getItem('userId');
+
+        $(this).closest('li').find('.updateEventForm').toggleClass('hidden');
+
+        // make ajax request to get event info
+        const settings = {
+            url: `http://localhost:8080/api/users/${userId}/calendar/${eventId}`,
+            dataType: 'json',
+            contentType: 'application/json',
+            type: 'GET',
+            error: function(error) {
+                console.log(error);
+            },
+            success: renderEventDetailstoEdit
+        }
+
+        $.ajax(settings);
+    })
+
+    // show a div with inputs using jQuery (on the current modal)
+    function renderEventDetailstoEdit(eventDetails) {
+        // input details into the the div (like a form)
+        // populate event details with relevant data
+        $('.editEventId').val(eventDetails.eventId);
+        $('.eventNameUpdate').val(eventDetails.title);
+        $('.startDateUpdate').val(eventDetails.startDate);
+        $('.endDateUpdate').val(eventDetails.endDate);
+        $('.startTimeUpdate').val(eventDetails.startTime);
+        $('.endTimeUpdate').val(eventDetails.endTime);
+    }
+
+    // listen for the form to be submitted
+    // get data submitted
+    // create ajax call to send it over
+    $('.listEvents').on('submit', '.updateEventForm', function(event) {
+        event.preventDefault();
+
+        $(this).closest('li').find('.updateEventForm').toggleClass('hidden');
+        
+        const title = $('.eventNameUpdate').val();
+        const startDate = $('.startDateUpdate').val();
+        const endDate = $('.endDateUpdate').val();
+        const startTime = $('.startTimeUpdate').val();
+        const endTime = $('.endTimeUpdate').val();
+        const eventId = $('.editEventId').val();
+        const userId = localStorage.getItem('userId');
+        localStorage.setItem('eventId', eventId);
+
+        $(this).closest('li').find('.eTitle').html(title);
+        console.log($(this).closest('li').find('.eventNameUpdate'));
+        // $(this).closest('li').find('.eventNameUpdate').html(title);
+        // $(this).closest('li').find('.eventNameUpdate').html(title);
+        // $(this).closest('li').find('.eventNameUpdate').html(title);
+        // $(this).closest('li').find('.eventNameUpdate').html(title);
+
+        const settings = {
+            url: `http://localhost:8080/api/users/${userId}/calendar/${eventId}`,
+            data: JSON.stringify({
+                title: title,
+                startDate: startDate,
+                endDate: endDate,
+                startTime: startTime,
+                endTime: endTime
+            }),
+            dataType: 'json',
+            contentType: 'application/json',
+            type: 'PUT',
+            error: function(error) {
+                console.log(error);
+            },
+            success: updateEventUI
+        }
+
+        $.ajax(settings);
+    })
+
+    function updateEventUI(user) {
+        const eventId = localStorage.getItem('eventId');
+        const userEvents = user.events;
+        const desEvent = userEvents.find(event => {
+            return event.eventId === eventId;
+        })
+
+    }
+
+    getEvents();
+});
