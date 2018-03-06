@@ -1,15 +1,50 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+
 * {
   box-sizing: border-box;
 }
 
-/* When clicked on, add a background color and strike out text */
-ul li.list-item__checked {
-  background: #888;
-  text-decoration: line-through;
+body { 
+  background: url('/images/swirl_pattern/swirl_pattern.png'); 
 }
 
+div > img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  height: 400px;
+}
+
+.navbar {
+  background-color: #75acff
+}
+
+.navbar-brand:hover {
+  cursor: default;
+}
+
+#navbarSupportedContent {
+  justify-content: flex-end;
+}
+
+.nav-link {
+  font-family: 'Raleway', sans-serif;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+/* When clicked on, add a background color and strike out text */
+/*ul li.list-item__checked {
+  background: #888;
+  text-decoration: line-through;
+}*/
+
 /* Add a "checked" mark when clicked on */
-ul li.list-item__checked::before {
+/*ul li.list-item__checked::before {
   content: '';
   position: absolute;
   border-style: solid;
@@ -19,10 +54,10 @@ ul li.list-item__checked::before {
   transform: rotate(45deg);
   height: 15px;
   width: 7px;
-}
+}*/
 
 /* Style the list items */
-ul li {
+/*ul li {
   cursor: pointer;
   position: relative;
   padding: 12px 8px 12px 40px;
@@ -32,24 +67,24 @@ ul li {
   transition: 0.2s;
   font-family: system-ui;
   font-weight: 300;
-  clear: both;
+  clear: both;*/
   
   /* make the list items unselectable */
-  -webkit-user-select: none;
+/*  -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
+}*/
 
 /* Set all odd list items to a different color (zebra-stripes) */
-ul li:nth-child(odd) {
+/*ul li:nth-child(odd) {
   background: #f9f9f9;
-}
+}*/
 
 /* Darker background-color on hover */
-ul li:hover {
+/*ul li:hover {
   background: #ddd;
-}
+}*/
 
 /* Style the "Add" button */
 .addButton {
@@ -73,58 +108,30 @@ ul li:hover {
 }
 
 .list-item-delete {
-  font-family: system-ui;
-  font-weight: 300;
-  font-size: 15px;
+  font-size: 14px;
+  float: right;
+  color: white;
+  background-color: #ed6b5a;
+  border-color: #ed6b5a;
+  font-family: 'Raleway', sans-serif;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-style: solid;
   float: right;
 }
 
 .list-item-delete:hover {
-  background-color: #bbb;
   cursor: pointer;
+  background-color: #474647;
+  border-color: #474647;
 }
 
 fieldset {
   border: none;
   padding: 0;
   margin: 0;
-}
-
-nav {
-  background-color: #D3D3D3;
-  position: fixed;
-  height: 65px;
-  text-align: right;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-nav > a {
-  font-size: 18px;
-  padding-right: 22px;
-  position: relative;
-  display: inline-block;
-  top: -50px;
-  font-family: system-ui;
-  font-weight: 350;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
-}
-
-nav > a:hover {
-  text-decoration: underline;
-}
-
-h1 {
-  padding-left: 20px;
-  color: black;
-  text-align: left;
-  font-family: system-ui;
-  font-weight: 300;
-  font-size: 30px;
-  margin-top: 9px;
 }
 
 main {

@@ -51,7 +51,7 @@ main {
 }
 
 .lists {
-  background: rgba(88, 90, 88, 0.5);
+  background: rgba(88, 90, 88, 0);
   width: 65%;
   margin-left: auto;
   margin-right: auto;
@@ -63,10 +63,14 @@ main {
 }
 
 .list {
-  background: rgba(255,255,255,.3);
+  background: rgba(203, 205, 203,.6);
   width: 85%;
   margin-left: auto;
   margin-right: auto;
+  border: 15px;
+  border-color: rgba(88, 90, 88, 0.6);
+  border-style: solid;
+
 }
 
 h2 {
@@ -158,6 +162,11 @@ h2 {
   border-color: #474647;
 }
 
+#createListButton:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
 .modal-body {
   background-color: #fff;
 }
@@ -201,6 +210,7 @@ label {
   padding-bottom: 5px;
   padding-left: 18px;
   padding-right: 18px;
+  border-style: none;
 }
 
 .modCloseButton:hover {

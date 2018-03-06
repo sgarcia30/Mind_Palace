@@ -25,17 +25,19 @@ $(document).ready( function() {
                       }
                       return 0; 
                 })
+
                 $('#dayEventDate').html(`${moment(target.date._d).format('ddd MMM DD YYYY')}`)
                 todayEvents.forEach((event, index) => {
-                    console.log(event);
+                    const timeInterval = from24hrto12hrTime(event.startTime, event.endTime);
+
                     $('.listEvents').append(`
                     <li class="eventTitle" data-id="${event.eventId}">
                         <span class='eTitle'>${event.title}</span>
                         <button class="delete-event">Delete</button>
                         <button class="edit-event">Edit</button>
                         <ul class='details'>
-                            <li>Time: ${moment(event.startTime).format('HH:mm')} - ${moment(event.endTime).format('HH:mm')}</li>
-                            <li>Date(s): ${moment(event.startDate).format('MM-DD')} - ${moment(event.endDate).format('MM-DD')}</li>
+                            <li class='eventTime'>Time: ${timeInterval[0]} - ${timeInterval[1]}</li>
+                            <li class='eventDate'>Date(s): ${moment(event.startDate).format('MM/DD')} - ${moment(event.endDate).format('MM/DD')}</li>
                         </ul>
                         <form class="updateEventForm hidden">
                           <fieldset name="update">
@@ -66,7 +68,21 @@ $(document).ready( function() {
         adjacentDaysChangeMonth: false
     });
 
+    function from24hrto12hrTime(startTime, endTime) {
+        let timeStart = startTime;
+        let timeEnd = endTime;
+        const HS = +timeStart.substr(0, 2);
+        const HE = +timeEnd.substr(0, 2);
+        const hs = HS % 12 || 12;
+        const he = HE % 12 || 12;
+        const ampms = (HS < 12 || HS === 24) ? " AM" : " PM";
+        const ampme = (HE < 12 || HE === 24) ? " AM" : " PM";
+        timeStart = hs + timeStart.substr(2, 3) + ampms;
+        timeEnd = he + timeEnd.substr(2, 3) + ampme;
+        const timeInterval = [timeStart, timeEnd];
 
+        return timeInterval;
+    }
 
     function getEvents() {
         const settings = {
@@ -153,6 +169,7 @@ $(document).ready( function() {
         $.ajax(settings);
     })
 
+    // Edit event
     $('.listEvents').on('click', '.edit-event', function() {
         // find which one I clicked on
         const eventId = $(this).closest('li').attr('data-id');
@@ -205,12 +222,11 @@ $(document).ready( function() {
         const userId = localStorage.getItem('userId');
         localStorage.setItem('eventId', eventId);
 
+        const timeInterval = from24hrto12hrTime(startTime, endTime);
+
         $(this).closest('li').find('.eTitle').html(title);
-        console.log($(this).closest('li').find('.eventNameUpdate'));
-        // $(this).closest('li').find('.eventNameUpdate').html(title);
-        // $(this).closest('li').find('.eventNameUpdate').html(title);
-        // $(this).closest('li').find('.eventNameUpdate').html(title);
-        // $(this).closest('li').find('.eventNameUpdate').html(title);
+        $(this).closest('li').find('.eventDate').html(`Date(s): ${moment(startDate).format('MM/DD')} - ${moment(endDate).format('MM/DD')}`);
+        $(this).closest('li').find('.eventTime').html(`Time: ${timeInterval[0]} - ${timeInterval[1]}`);
 
         const settings = {
             url: `http://localhost:8080/api/users/${userId}/calendar/${eventId}`,
@@ -227,20 +243,13 @@ $(document).ready( function() {
             error: function(error) {
                 console.log(error);
             },
-            success: updateEventUI
+            success: function(response) {
+                getEvents();
+            }
         }
 
         $.ajax(settings);
     })
-
-    function updateEventUI(user) {
-        const eventId = localStorage.getItem('eventId');
-        const userEvents = user.events;
-        const desEvent = userEvents.find(event => {
-            return event.eventId === eventId;
-        })
-
-    }
 
     getEvents();
 });

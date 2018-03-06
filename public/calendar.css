@@ -56,6 +56,11 @@ div > img {
   border-color: #474647;
 }
 
+#createEventButton:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
 .modal-body {
   background-color: #fff;
 }
@@ -68,7 +73,7 @@ div > img {
   border-radius: 0px !important;
   background-color: #339cff;
   font-family: 'Raleway', sans-serif;
-  font-size: 22px;
+  font-size: 18px;
 }
 
 input {
@@ -104,6 +109,7 @@ label {
   padding-bottom: 5px;
   padding-left: 18px;
   padding-right: 18px;
+  border-style: none;
 }
 
 .modCloseButton:hover {
@@ -126,6 +132,7 @@ label {
   padding-bottom: 5px;
   padding-left: 18px;
   padding-right: 18px;
+  border-style: solid;
 }
 
 .updateButton:hover {
@@ -155,6 +162,10 @@ label {
   list-style: none;
 }
 
+.eventTitle {
+  padding-bottom: 5px;
+}
+
 .listEvents {
   list-style-type: decimal;
 }
@@ -172,30 +183,32 @@ label {
 }
 
 .delete-event {
-  font-size: 15px;
+  font-size: 14px;
   float: right;
   color: white;
   background-color: #ed6b5a;
   border-color: #ed6b5a;
   font-family: 'Raleway', sans-serif;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 14px;
-  padding-right: 14px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-style: solid;
 }
 
 .edit-event {
-  font-size: 15px;
+  font-size: 14px;
   float: right;
   color: white;
   background-color: #ed6b5a;
   border-color: #ed6b5a;
   font-family: 'Raleway', sans-serif;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 14px;
-  padding-right: 14px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 12px;
+  padding-right: 12px;
   margin-right: 5px;
+  border-style: solid;
 }
 
 .day:hover {
@@ -204,4 +217,9 @@ label {
 
 .hidden {
   display: none;
+}
+
+.updateEventForm {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
