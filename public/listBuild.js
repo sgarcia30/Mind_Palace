@@ -68,9 +68,17 @@ function handleListBuildButton() {
 }
 
 function renderListInput(listInput) {
-    return `
-        <li class="list-item" data-listId="${listInput.itemId}" data-name="${listInput.item}"><button class="list-item-delete">Delete</button><div class="listVal">${listInput.item}</div></li>
-    `;
+    if (listInput.complete === true) {
+        return `
+            <li class="list-item__checked" data-listId="${listInput.itemId}" data-name="${listInput.item}"><button class="list-item-delete">Delete</button><div class="listVal">${listInput.item}</div></li>
+        `;
+    }
+    else {
+        return `
+            <li class="list-item" data-listId="${listInput.itemId}" data-name="${listInput.item}"><button class="list-item-delete">Delete</button><div class="listVal">${listInput.item}</div></li>
+        `;
+    }
+
 }
 
 $('ul').on('click', ".list-item", function(event) {
@@ -91,11 +99,20 @@ $('ul').on('click', ".list-item", function(event) {
         },
         success: function(response) {
             console.log(response);
+            response.lists.forEach(list => {
+                if(lists.listId === listId) {
+                    list.items.forEach(obj => {
+                        let inputValue = renderListInput(obj);
+                        $("#myList").append(inputValue);
+                        $('.listBuildForm')[0].reset(); 
+                    })
+                }
+            })
         }
     }
 
     $.ajax(settings);
-    $(this).toggleClass('list-item__checked');
+    // $(this).toggleClass('list-item__checked');
 });
 
 $('ul').on('click', '.list-item-delete', function(event) {

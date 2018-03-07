@@ -72,7 +72,7 @@ router.post('/list/build', (req, res) => {
 router.put('/list/build/item', (req, res) => {
 	User
 	.findOneAndUpdate({_id: req.body.userId, 'lists.listId': req.body.listId, 'lists.items.itemId': req.body.itemId},
-		{$set: {'lists.$.items.$.item.$.complete': true}})
+		{$set: {'lists.$.items.item.complete': true}})
 	.then(user => {
 		res.json(user);
 	})
@@ -148,7 +148,6 @@ router.delete('/:userId/lists/:listId/items/:itemIndex', (req, res) => {
 router.post('/calendar', (req, res) => {
 	console.log(req.body.endDate);
 	if (req.body.endDate === '') {
-		console.log('are we getting inside?')
 		req.body.endDate = req.body.startDate;
 	}
 
