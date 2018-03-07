@@ -33,10 +33,8 @@ function handleListBuildButton() {
     $('.listBuildForm').on('submit', function(event) {
         event.preventDefault();
         const listInput = $('#myInput').val();
-        const inputValue = renderListInput(listInput);
+        $('#myList').html('');
 
-        $("#myList").append(inputValue);
-        $('.listBuildForm')[0].reset();
 
         const settings = {
             url: 'http://localhost:8080/api/users/list/build',
@@ -53,7 +51,15 @@ function handleListBuildButton() {
                 console.log(error);
             },
             success: function(response) {
-                console.log(response.lists)
+                const desList = response.lists.find(list => {
+                    return list.listId === listId;
+                })
+
+                desList.items.forEach(obj => {
+                    let inputValue = renderListInput(obj);
+                    $("#myList").append(inputValue);
+                    $('.listBuildForm')[0].reset(); 
+                })                               
             }
         }
 
@@ -63,11 +69,32 @@ function handleListBuildButton() {
 
 function renderListInput(listInput) {
     return `
-        <li class="list-item" data-name="${listInput}"><button class="list-item-delete">Delete</button><div class="listVal">${listInput}</div></li>
+        <li class="list-item" data-listId="${listInput.itemId}" data-name="${listInput.item}"><button class="list-item-delete">Delete</button><div class="listVal">${listInput.item}</div></li>
     `;
 }
 
 $('ul').on('click', ".list-item", function(event) {
+    const itemId = $(this).attr('data-itemId');
+
+    const settings = {
+        url:`http://localhost:8080/api/users/list/build/item`,
+        data: JSON.stringify({
+            listId: listId,
+            itemId: itemId,
+            userId: userId
+        }),
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'PUT',
+        error: function(error) {
+            console.log(error);
+        },
+        success: function(response) {
+            console.log(response);
+        }
+    }
+
+    $.ajax(settings);
     $(this).toggleClass('list-item__checked');
 });
 

@@ -50,14 +50,31 @@ router.put('/list', (req, res) => {
 });
 
 router.post('/list/build', (req, res) => {
+	const listVal = {item: req.body.val, complete: false, itemId: uuidv1()};
+
 	User
 	.findOneAndUpdate({_id: req.body.userId, 'lists.listId': req.body.listId},
-		// explain the '{new: true}' part?
-		{$push: {"lists.$.items": req.body.val}},
+		{$push: {"lists.$.items": listVal}},
 		{new: true})
 	.then(user => {
 		// console.log('User ====', user);
 		res.status(200).json(user);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500);
+	})
+})
+
+// * Inside the end point we need to write the logic
+// to update the items complete property from false to true 
+// ie opposite of what it was when a user clicked on it.
+router.put('/list/build/item', (req, res) => {
+	User
+	.findOneAndUpdate({_id: req.body.userId, 'lists.listId': req.body.listId, 'lists.items.itemId': req.body.itemId},
+		{$set: {'lists.$.items.$.item.$.complete': true}})
+	.then(user => {
+		res.json(user);
 	})
 	.catch(err => {
 		console.log(err);
