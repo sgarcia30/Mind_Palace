@@ -70,7 +70,6 @@ main {
   border: 15px;
   border-color: rgba(88, 90, 88, 0.6);
   border-style: solid;
-
 }
 
 h2 {
@@ -89,7 +88,6 @@ h2 {
   font-size: 18px;
   transition: 0.2s;
   font-family: 'Raleway', sans-serif;
-  font-weight: 300;
   clear: both;
   
   /* make the list items unselectable */

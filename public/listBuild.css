@@ -4,8 +4,14 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 85%;
+}
+
 body { 
   background: url('/images/swirl_pattern/swirl_pattern.png'); 
+  height: 100%;
+  position: relative;
 }
 
 div > img {
@@ -37,14 +43,100 @@ div > img {
   text-decoration: underline;
 }
 
+main {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  height: 100%;
+  position: relative;  
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+input {
+  margin-left: 5%;
+  margin-top: 20px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  width: 35%;
+  padding: 6.5px;
+  float: left;
+  border: gray solid 1px;
+}
+
+/* Style the "Add" button */
+.addButton {
+  padding: 5px;
+  width: 12%;
+  background-color: #ed6b5a;
+  border-color: #ed6b5a;
+  float: left;
+  text-align: center;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: 'Raleway', sans-serif;
+  margin-left: 5px;
+  border-style: solid;
+  margin-top: 20px;
+}
+
+.addButton:hover {
+  background-color: #474647;
+  border-color: #474647;
+  cursor: pointer;
+}
+
+.listBuild {
+  background: rgba(88, 90, 88, 0);
+  width: 65%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.listSection {
+  background: rgba(203, 205, 203,.6);
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 15px;
+  border-color: rgba(88, 90, 88, 0.6);
+  border-style: solid;
+}
+
+/* Style the list items */
+.list-item {
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  list-style-type: none;
+  font-size: 18px;
+  transition: 0.2s;
+  font-family: 'Raleway', sans-serif;
+  clear: both;
+  
+  /* make the list items unselectable */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 /* When clicked on, add a background color and strike out text */
-/*ul li.list-item__checked {
-  background: #888;
+.list-item__checked {
+  background: rgba(88, 90, 88, 0.6);
   text-decoration: line-through;
-}*/
+}
 
 /* Add a "checked" mark when clicked on */
-/*ul li.list-item__checked::before {
+.list-item__checked::before {
   content: '';
   position: absolute;
   border-style: solid;
@@ -54,57 +146,11 @@ div > img {
   transform: rotate(45deg);
   height: 15px;
   width: 7px;
-}*/
-
-/* Style the list items */
-/*ul li {
-  cursor: pointer;
-  position: relative;
-  padding: 12px 8px 12px 40px;
-  list-style-type: none;
-  background: #eee;
-  font-size: 18px;
-  transition: 0.2s;
-  font-family: system-ui;
-  font-weight: 300;
-  clear: both;*/
-  
-  /* make the list items unselectable */
-/*  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}*/
-
-/* Set all odd list items to a different color (zebra-stripes) */
-/*ul li:nth-child(odd) {
-  background: #f9f9f9;
-}*/
-
-/* Darker background-color on hover */
-/*ul li:hover {
-  background: #ddd;
-}*/
-
-/* Style the "Add" button */
-.addButton {
-  padding: 5px;
-  width: 8%;
-  background: #d9d9d9;
-  color: #555;
-  float: left;
-  text-align: center;
-  font-size: 15px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-family: system-ui;
-  font-weight: 350;
-  border-radius: 5px;
-  margin-left: 5px;
 }
 
-.addButton:hover {
-  background-color: #bbb;
+/* Darker background-color on hover */
+.list-item:hover {
+  background: rgba(255,255,255,.6);
 }
 
 .list-item-delete {
@@ -120,33 +166,13 @@ div > img {
   padding-right: 12px;
   border-style: solid;
   float: right;
+  margin-right: 15px;
 }
 
 .list-item-delete:hover {
   cursor: pointer;
   background-color: #474647;
   border-color: #474647;
-}
-
-fieldset {
-  border: none;
-  padding: 0;
-  margin: 0;
-}
-
-main {
-  margin-top: 76px;
-  margin-left: 20px;
-}
-
-input {
-  font-family: system-ui;
-  font-weight: 300;
-  font-size: 16px;
-  width: 25%;
-  padding: 4px;
-  border-radius: 5px;
-  float: left;
 }
 
 .listVal {
