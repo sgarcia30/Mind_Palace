@@ -214,3 +214,23 @@ label {
   background-color: #474647;
   border-color: #474647;
 }
+
+.modCloseButton:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.swal-modal {
+  border-radius: 0px;
+}
+
+.swal-text {
+  font-family: 'Raleway', sans-serif;
+  font-size: 18px;
+}
+
+.swal-button {
+  border-radius: 0px;
+  background-color: #339cff;
+  font-family: 'Raleway', sans-serif;
+}

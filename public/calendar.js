@@ -13,50 +13,56 @@ $(document).ready( function() {
     calendars.clndr1 = $('.cal1').clndr({
         clickEvents: {
             click: function (target) {
+                console.log(target.events);
                 $('.listEvents').html('');
-                $('#eventDetails').modal('toggle'); 
-                const todayEvents = target.events;
-                todayEvents.sort((event1, event2) => {
-                      if(event1.startTime < event2.startTime) {
-                        return -1;
-                      }
-                      if(event1.startTime > event2.startTime) {
-                        return 1
-                      }
-                      return 0; 
-                })
-
+                $('#eventDetails').modal('toggle');
                 $('#dayEventDate').html(`${moment(target.date._d).format('ddd MMM DD YYYY')}`)
-                todayEvents.forEach((event, index) => {
-                    const timeInterval = from24hrto12hrTime(event.startTime, event.endTime);
 
-                    $('.listEvents').append(`
-                    <li class="eventTitle" data-id="${event.eventId}">
-                        <span class='eTitle'>${event.title}</span>
-                        <button class="delete-event">Delete</button>
-                        <button class="edit-event">Edit</button>
-                        <ul class='details'>
-                            <li class='eventTime'>Time: ${timeInterval[0]} - ${timeInterval[1]}</li>
-                            <li class='eventDate'>Date(s): ${moment(event.startDate).format('MM/DD')} - ${moment(event.endDate).format('MM/DD')}</li>
-                        </ul>
-                        <form class="updateEventForm hidden">
-                          <fieldset name="update">
-                            <input type='hidden' class='editEventId' />
-                            <input type="text" size="35" name="eventNameUpdate" class="eventNameUpdate" placeholder='Add title here' required/>
-                            <label for="startDateUpdate">Start Date</label>
-                            <input type="date" name="startDateUpdate" class="startDateUpdate" required/>
-                            <label for="endDateUpdate">End Date (optional)</label>
-                            <input type="date" name="endDateUpdate" class="endDateUpdate" />
-                            <label for="startTimeUpdate">Start Time</label>
-                            <input type="time" name="startTimeUpdate" class="startTimeUpdate" required/>
-                            <label for="endTimeUpdate">End Time</label>
-                            <input type="time" name="endTimeUpdate" class="endTimeUpdate" required />
-                          </fieldset>
-                          <button class='updateButton'>Update</button>
-                        </form>
-                    </li>
-                    `)
-                })
+                if (target.events && target.events.length) {
+                    const todayEvents = target.events;
+                    todayEvents.sort((event1, event2) => {
+                          if(event1.startTime < event2.startTime) {
+                            return -1;
+                          }
+                          if(event1.startTime > event2.startTime) {
+                            return 1
+                          }
+                          return 0; 
+                    })
+                    
+                    todayEvents.forEach((event, index) => {
+                        const timeInterval = from24hrto12hrTime(event.startTime, event.endTime);
+                        $('.listEvents').append(`
+                        <li class="eventTitle" data-id="${event.eventId}">
+                            <span class='eTitle'>${event.title}</span>
+                            <button class="delete-event">Delete</button>
+                            <button class="edit-event">Edit</button>
+                            <ul class='details'>
+                                <li class='eventTime'>Time: ${timeInterval[0]} - ${timeInterval[1]}</li>
+                                <li class='eventDate'>Date(s): ${moment(event.startDate).format('MM/DD')} - ${moment(event.endDate).format('MM/DD')}</li>
+                            </ul>
+                            <form class="updateEventForm hidden">
+                              <fieldset name="update">
+                                <input type='hidden' class='editEventId' />
+                                <input type="text" size="35" name="eventNameUpdate" class="eventNameUpdate" placeholder='Add title here' required/>
+                                <label for="startDateUpdate">Start Date</label>
+                                <input type="date" name="startDateUpdate" class="startDateUpdate" required/>
+                                <label for="endDateUpdate">End Date (optional)</label>
+                                <input type="date" name="endDateUpdate" class="endDateUpdate" />
+                                <label for="startTimeUpdate">Start Time</label>
+                                <input type="time" name="startTimeUpdate" class="startTimeUpdate" required/>
+                                <label for="endTimeUpdate">End Time</label>
+                                <input type="time" name="endTimeUpdate" class="endTimeUpdate" required />
+                              </fieldset>
+                              <button class='updateButton'>Update</button>
+                            </form>
+                        </li>
+                        `)
+                    })
+                }
+                else {
+                    $('.listEvents').append(`No events on this date.`);
+                }
             }
         },
         multiDayEvents: {

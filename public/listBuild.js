@@ -24,7 +24,7 @@ function displayListItems(data) {
 
 function renderListTitle() {
     const listTitle = localStorage.getItem('listTitle');
-    $('.title').html(listTitle);
+    $('.title').html(`Mind Palace - ${listTitle}`);
 
     handleListBuildButton();
 }

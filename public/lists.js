@@ -1,3 +1,5 @@
+// import swal from 'sweetalert';
+
 const userId = localStorage.getItem('userId');
 
 const settings = {
@@ -83,7 +85,9 @@ $('.listForm').on('submit', function(event) {
         },
 		success: function(response) {
             if (response.message) {
-                alert(response.message);
+            	swal({text: response.message, icon: 'error'
+				});
+                // $('.titleExist').html(response.message);
             }
             else {
                 localStorage.setItem('listId', response.listId);

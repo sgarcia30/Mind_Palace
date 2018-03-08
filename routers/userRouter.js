@@ -31,21 +31,27 @@ router.put('/list', (req, res) => {
 	User.findOne({_id: req.body.userId})
 	.then(user => {
 		const lists = user.lists;
+		let canCreatList = true;
 		lists.forEach(item => {
 			if (item.title === list.title) {
-				res.json({message: 'List already exists'});
+				canCreatList = false;
 			}
 		})
-	User.update(
-	    { _id: req.body.userId }, 
-	    { $push: { lists: list} }
-	)
-	.then( (updatedData) => {
-		res.json(list);
-	})
-	.catch(err => {
-		res.json(err);
-	})
+	if (canCreatList) {
+		User.update(
+		    { _id: req.body.userId }, 
+		    { $push: { lists: list} }
+		)
+		.then( (updatedData) => {
+			res.json(list);
+		})
+		.catch(err => {
+			res.json(err);
+		})
+	}
+	else {
+		res.json({message: 'A list already exists with that title.'})
+	}
 	})
 });
 
