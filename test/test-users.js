@@ -31,7 +31,7 @@ describe('/api/user', function() {
   beforeEach(function() {});
 
   afterEach(function() {
-    return User.remove({});
+    // return User.remove({});
   });
 
   describe('/api/users', function() {

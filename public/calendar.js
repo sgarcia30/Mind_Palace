@@ -3,7 +3,6 @@ var calendars = {};
 const userId = localStorage.getItem('userId');
 
 $(document).ready( function() {
-
     // Here's some magic to make sure the dates are happening this month.
     var thisMonth = moment().format('YYYY-MM');
     // Events to load into calendar
@@ -102,7 +101,7 @@ $(document).ready( function() {
             success: function(events) {
                 console.log(events);
                 console.log(calendars.clndr1);
-                calendars.clndr1.addEvents(events);
+                calendars.clndr1.setEvents(events);
             }
         }
 
@@ -251,6 +250,7 @@ $(document).ready( function() {
                 console.log(error);
             },
             success: function(response) {
+                // calendars.clndr1.removeEvents();
                 getEvents();
             }
         }

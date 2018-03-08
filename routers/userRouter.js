@@ -76,16 +76,34 @@ router.post('/list/build', (req, res) => {
 // to update the items complete property from false to true 
 // ie opposite of what it was when a user clicked on it.
 router.put('/list/build/item', (req, res) => {
+
+	console.log(req.body);
+
 	User
-	.findOneAndUpdate({_id: req.body.userId, 'lists.listId': req.body.listId, 'lists.items.itemId': req.body.itemId},
-		{$set: {'lists.$.items.item.complete': true}})
+	.update({_id: req.body.userId, 'lists.listId': req.body.listId, 'lists.items.itemId': req.body.itemId},
+		{$set: {'items.$.complete': true}})
 	.then(user => {
+		console.log(user);
+		return false;
 		res.json(user);
 	})
 	.catch(err => {
 		console.log(err);
 		res.status(500);
 	})
+
+	// User
+	// .findOneAndUpdate({_id: req.body.userId, 'lists.listId': req.body.listId, 'lists.items.itemId': req.body.itemId},
+	// 	{$set: {'lists.items.$.complete': true}})
+	// .then(user => {
+	// 	console.log(user);
+	// 	return false;
+	// 	res.json(user);
+	// })
+	// .catch(err => {
+	// 	console.log(err);
+	// 	res.status(500);
+	// })
 })
 
 router.get('/:userId/lists/:listId', (req, res) => {

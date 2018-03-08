@@ -35,7 +35,6 @@ function handleListBuildButton() {
         const listInput = $('#myInput').val();
         $('#myList').html('');
 
-
         const settings = {
             url: 'http://localhost:8080/api/users/list/build',
             data: JSON.stringify({
@@ -70,12 +69,12 @@ function handleListBuildButton() {
 function renderListInput(listInput) {
     if (listInput.complete === true) {
         return `
-            <li class="list-item__checked" data-listId="${listInput.itemId}" data-name="${listInput.item}"><button class="list-item-delete">Delete</button><div class="listVal">${listInput.item}</div></li>
+            <li class="list-item__checked" data-itemId="${listInput.itemId}" data-name="${listInput.item}"><button class="list-item-delete">Delete</button><div class="listVal">${listInput.item}</div></li>
         `;
     }
     else {
         return `
-            <li class="list-item" data-listId="${listInput.itemId}" data-name="${listInput.item}"><button class="list-item-delete">Delete</button><div class="listVal">${listInput.item}</div></li>
+            <li class="list-item" data-itemId="${listInput.itemId}" data-name="${listInput.item}"><button class="list-item-delete">Delete</button><div class="listVal">${listInput.item}</div></li>
         `;
     }
 
@@ -83,13 +82,15 @@ function renderListInput(listInput) {
 
 $('ul').on('click', ".list-item", function(event) {
     const itemId = $(this).attr('data-itemId');
+    console.log($(this));
+    console.log(itemId);
 
     const settings = {
         url:`http://localhost:8080/api/users/list/build/item`,
         data: JSON.stringify({
-            listId: listId,
-            itemId: itemId,
-            userId: userId
+            listId,
+            itemId,
+            userId
         }),
         dataType: 'json',
         contentType: 'application/json',
@@ -112,7 +113,7 @@ $('ul').on('click', ".list-item", function(event) {
     }
 
     $.ajax(settings);
-    // $(this).toggleClass('list-item__checked');
+    $(this).toggleClass('list-item__checked');
 });
 
 $('ul').on('click', '.list-item-delete', function(event) {

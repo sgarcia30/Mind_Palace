@@ -87,7 +87,6 @@ $('.listForm').on('submit', function(event) {
             if (response.message) {
             	swal({text: response.message, icon: 'error'
 				});
-                // $('.titleExist').html(response.message);
             }
             else {
                 localStorage.setItem('listId', response.listId);
