@@ -14,6 +14,9 @@ $('#loginForm').on('submit', function(event) {
 	contentType: 'application/json',
 	type: 'POST',
 	error: function(error) {
+		swal({text: 'Incorrect email or password', icon: 'error'
+		});
+		$('#loginForm')[0].reset(); 
 		console.log(error);
 	},
 	success: function(response) {

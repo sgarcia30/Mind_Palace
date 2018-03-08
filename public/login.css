@@ -1,16 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway");
 
 body {
-	overflow-y: auto;
+	overflow-y: scroll;
 }
 
-.background-image {
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: 0;
-	z-index: 1;
-	display: block;
+html {
 	background: url("/images/haitao-zeng-102073-unsplash.jpg");
 	width: 100%;
 	height: 100%;
@@ -18,13 +12,8 @@ body {
 }
 
 .loginForm {
-	position: fixed;
-	left: 0;
-	right: 0;
-	z-index: 9999;
 	margin-left: 20px;
 	margin-right: 20px;
-  
 }
 
 fieldset {
@@ -41,7 +30,8 @@ fieldset {
 	padding-right: 40px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 40px;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 legend {
@@ -90,4 +80,24 @@ input {
 	cursor: pointer;
 	background-color: #474647;
 	border-color: #474647;
+}
+
+.button:focus {
+	outline: 0;
+  	box-shadow: none;
+}
+
+.swal-modal {
+  border-radius: 0px;
+}
+
+.swal-text {
+  font-family: 'Raleway', sans-serif;
+  font-size: 18px;
+}
+
+.swal-button {
+  border-radius: 0px;
+  background-color: #339cff;
+  font-family: 'Raleway', sans-serif;
 }

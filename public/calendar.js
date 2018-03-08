@@ -101,6 +101,7 @@ $(document).ready( function() {
             },
             success: function(events) {
                 console.log(events);
+                console.log(calendars.clndr1);
                 calendars.clndr1.addEvents(events);
             }
         }
