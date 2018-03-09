@@ -67,9 +67,9 @@ function handleListBuildButton() {
 }
 
 function renderListInput(listInput) {
-    if (listInput.complete === true) {
+    if (listInput.complete) {
         return `
-            <li class="list-item__checked" data-itemId="${listInput.itemId}" data-name="${listInput.item}"><button class="list-item-delete">Delete</button><div class="listVal">${listInput.item}</div></li>
+            <li class="list-item list-item__checked" data-itemId="${listInput.itemId}" data-name="${listInput.item}"><button class="list-item-delete">Delete</button><div class="listVal">${listInput.item}</div></li>
         `;
     }
     else {
@@ -82,8 +82,7 @@ function renderListInput(listInput) {
 
 $('ul').on('click', ".list-item", function(event) {
     const itemId = $(this).attr('data-itemId');
-    console.log($(this));
-    console.log(itemId);
+    $(this).toggleClass('list-item__checked');
 
     const settings = {
         url:`http://localhost:8080/api/users/list/build/item`,
@@ -100,20 +99,10 @@ $('ul').on('click', ".list-item", function(event) {
         },
         success: function(response) {
             console.log(response);
-            response.lists.forEach(list => {
-                if(lists.listId === listId) {
-                    list.items.forEach(obj => {
-                        let inputValue = renderListInput(obj);
-                        $("#myList").append(inputValue);
-                        $('.listBuildForm')[0].reset(); 
-                    })
-                }
-            })
         }
     }
 
     $.ajax(settings);
-    $(this).toggleClass('list-item__checked');
 });
 
 $('ul').on('click', '.list-item-delete', function(event) {

@@ -77,34 +77,19 @@ router.post('/list/build', (req, res) => {
 // ie opposite of what it was when a user clicked on it.
 router.put('/list/build/item', (req, res) => {
 
-	console.log(req.body);
+        User.findOne({_id: req.body.userId}, (error, doc) => {
+        // Do some mutations
+            const userListIndex = doc.lists.findIndex(list => list.listId === req.body.listId)
+            const userItemIndex = doc.lists[userListIndex].items.findIndex(item => item.itemId === req.body.itemId)
 
-	User
-	.update({_id: req.body.userId, 'lists.listId': req.body.listId, 'lists.items.itemId': req.body.itemId},
-		{$set: {'items.$.complete': true}})
-	.then(user => {
-		console.log(user);
-		return false;
-		res.json(user);
-	})
-	.catch(err => {
-		console.log(err);
-		res.status(500);
-	})
+            doc.lists[userListIndex].items[userItemIndex].complete = !doc.lists[userListIndex].items[userItemIndex].complete
 
-	// User
-	// .findOneAndUpdate({_id: req.body.userId, 'lists.listId': req.body.listId, 'lists.items.itemId': req.body.itemId},
-	// 	{$set: {'lists.items.$.complete': true}})
-	// .then(user => {
-	// 	console.log(user);
-	// 	return false;
-	// 	res.json(user);
-	// })
-	// .catch(err => {
-	// 	console.log(err);
-	// 	res.status(500);
-	// })
-})
+            // Pass in the mutated doc and replace
+            User.replaceOne({_id: req.body.userId}, doc, (error, newDoc) => {
+                res.json({msg: 'Success'})
+            })
+        })
+}) 
 
 router.get('/:userId/lists/:listId', (req, res) => {
 	User
