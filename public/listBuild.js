@@ -24,7 +24,7 @@ function displayListItems(data) {
 
 function renderListTitle() {
     const listTitle = localStorage.getItem('listTitle');
-    $('.title').html(`Mind Palace - ${listTitle}`);
+    $('.title').html(`Mind Palace -<br class='res-break'> ${listTitle}`);
 
     handleListBuildButton();
 }
@@ -69,12 +69,12 @@ function handleListBuildButton() {
 function renderListInput(listInput) {
     if (listInput.complete) {
         return `
-            <li class="list-item list-item__checked" data-itemId="${listInput.itemId}" data-name="${listInput.item}"><button class="list-item-delete">Delete</button><div class="listVal">${listInput.item}</div></li>
+            <li class="list-item list-item__checked" data-itemId="${listInput.itemId}" data-name="${listInput.item}"><br class='res-break'><button class="list-item-delete">Delete</button><div class="listVal">${listInput.item}</div></li>
         `;
     }
     else {
         return `
-            <li class="list-item" data-itemId="${listInput.itemId}" data-name="${listInput.item}"><button class="list-item-delete">Delete</button><div class="listVal">${listInput.item}</div></li>
+            <li class="list-item" data-itemId="${listInput.itemId}" data-name="${listInput.item}"><br class='res-break'><button class="list-item-delete">Delete</button><div class="listVal">${listInput.item}</div></li>
         `;
     }
 

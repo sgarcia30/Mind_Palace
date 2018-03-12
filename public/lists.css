@@ -234,3 +234,23 @@ label {
   background-color: #339cff;
   font-family: 'Raleway', sans-serif;
 }
+
+.res-break {
+  display: none;
+}
+
+@media only screen and (max-width: 640px) {
+  .lists {
+    width: 100%;
+  }
+
+  #createListButton {
+    margin-top: 15px;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .res-break {
+    display: block;
+  }
+}
