@@ -57,6 +57,7 @@ input {
 	padding: 15px;
 	font-family: 'Raleway', sans-serif;
 	font-size: 18px;
+	border: 0px;
 }
 
 .button {
@@ -100,4 +101,39 @@ input {
   border-radius: 0px;
   background-color: #339cff;
   font-family: 'Raleway', sans-serif;
+}
+
+@media only screen and (max-width: 640px) {
+  input {
+  	width: 100%;
+  	font-size: 4vw;
+  	padding: 5px;
+  }
+
+  label {
+  	font-size: 4vw;
+  }
+
+  .FormBox {
+  	width: auto;
+  	height: auto;
+  	margin-top: 10px;
+  	margin-bottom: 10px;
+  }
+
+  legend {
+  	font-size: 8vw;
+  	padding-top: 20px;
+  	padding-bottom: 0px;
+  }
+
+  .button {
+  	font-size: 3vw;
+  	margin-top: 15px;
+  	margin-bottom: 10px;
+  }
+
+  #loginForm {
+  	height: 100%;
+  }
 }

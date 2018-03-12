@@ -53,6 +53,7 @@ input {
 	padding: 12px;
 	font-family: 'Raleway', sans-serif;
 	font-size: 16px;
+	border: 0px;
 }
 
 .button {
@@ -81,4 +82,39 @@ input {
 .button:focus {
 	outline: 0;
   	box-shadow: none;
+}
+
+@media only screen and (max-width: 640px) {
+  input {
+  	width: 100%;
+  	font-size: 4vw;
+  	padding: 5px;
+  }
+
+  label {
+  	font-size: 4vw;
+  }
+
+  .FormBox {
+  	width: auto;
+  	height: auto;
+  	margin-top: 10px;
+  	margin-bottom: 10px;
+  }
+
+  legend {
+  	font-size: 8vw;
+  	padding-top: 20px;
+  	padding-bottom: 0px;
+  }
+
+  .button {
+  	font-size: 3vw;
+  	margin-top: 15px;
+  	margin-bottom: 10px;
+  }
+
+  .registrationForm {
+  	height: 100%;
+  }
 }
