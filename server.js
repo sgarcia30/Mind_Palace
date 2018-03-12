@@ -55,11 +55,11 @@ let server;
 // this function starts our server and returns a Promise.
 // In our test code, we need a way of asynchronously starting
 // our server, since we'll be dealing with promises there.
-function runServer() {
+function runServer(db_url) {
   const port = process.env.PORT || 8080;
   return new Promise((resolve, reject) => {
     server = app.listen(port, () => {
-      mongoose.connect("mongodb://new-user:12345@ds251197.mlab.com:51197/mind-palace");
+      mongoose.connect(db_url);
       console.log(`Your app is listening on port ${port}`);
       resolve(server);
     }).on('error', err => {
@@ -88,7 +88,7 @@ function closeServer() {
 // if server.js is called directly (aka, with `node server.js`), this block
 // runs. but we also export the runServer command so other code (for instance, test code) can start the server as needed.
 if (require.main === module) {
-  runServer().catch(err => console.error(err));
+  runServer("mongodb://new-user:12345@ds251197.mlab.com:51197/mind-palace").catch(err => console.error(err));
 };
 
 module.exports = {app, runServer, closeServer};

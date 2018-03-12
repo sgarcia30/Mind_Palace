@@ -115,7 +115,7 @@ $('ul').on('click', '.list-item-delete', function(event) {
         url: `http://localhost:8080/api/users/${userId}/lists/${listId}/items/${itemIndex}`,
         dataType: 'json',
         contentType: 'application/json', 
-        type: 'DELETE', //maybe it should be POST (cause we're updating)?
+        type: 'DELETE',
         error: function (error) {
             console.log(error)
         },

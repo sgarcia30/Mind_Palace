@@ -77,19 +77,19 @@ router.post('/list/build', (req, res) => {
 // ie opposite of what it was when a user clicked on it.
 router.put('/list/build/item', (req, res) => {
 
-        User.findOne({_id: req.body.userId}, (error, doc) => {
+        User.findOne({_id: req.body.userId}, (error, user) => {
         // Do some mutations
-            const userListIndex = doc.lists.findIndex(list => list.listId === req.body.listId)
-            const userItemIndex = doc.lists[userListIndex].items.findIndex(item => item.itemId === req.body.itemId)
+            const userListIndex = user.lists.findIndex(list => list.listId === req.body.listId);
+            const userItemIndex = user.lists[userListIndex].items.findIndex(item => item.itemId === req.body.itemId);
 
-            doc.lists[userListIndex].items[userItemIndex].complete = !doc.lists[userListIndex].items[userItemIndex].complete
+            user.lists[userListIndex].items[userItemIndex].complete = !user.lists[userListIndex].items[userItemIndex].complete;
 
-            // Pass in the mutated doc and replace
-            User.replaceOne({_id: req.body.userId}, doc, (error, newDoc) => {
-                res.json({msg: 'Success'})
+            // Pass in the mutated user and replace
+            User.replaceOne({_id: req.body.userId}, user, (error, newUser) => {
+                res.json({msg: 'Success'});
             })
         })
-}) 
+})
 
 router.get('/:userId/lists/:listId', (req, res) => {
 	User

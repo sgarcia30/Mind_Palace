@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 describe ('server', function() {
 
   before(function() {
-   	return runServer();
+   	return runServer('mongodb://sgarcia30:12345@ds141524.mlab.com:41524/mp-test-db');
   });
 
   after(function() {

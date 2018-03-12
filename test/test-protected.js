@@ -1,5 +1,5 @@
 'use strict';
-global.DATABASE_URL = 'mongodb://new-user:12345@ds251197.mlab.com:51197/mind-palace';
+global.DATABASE_URL = 'mongodb://sgarcia30:12345@ds141524.mlab.com:41524/mp-test-db';
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const jwt = require('jsonwebtoken');
@@ -19,7 +19,7 @@ describe('Protected endpoint', function() {
   const lastName = 'User';
 
   before(function() {
-    return runServer();
+    return runServer('mongodb://sgarcia30:12345@ds141524.mlab.com:41524/mp-test-db');
   });
 
   after(function() {
@@ -38,7 +38,7 @@ describe('Protected endpoint', function() {
   });
 
   afterEach(function() {
-    // return User.remove({});
+    return User.remove({});
   });
 
   describe('/api/protected', function() {
