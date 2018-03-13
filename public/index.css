@@ -9,8 +9,8 @@ div > img {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 10px;
-	height: auto;
-	width: 100%;
+	width: auto;
+	height: 400px;
 	padding-right: 15px;
 	padding-left: 15px;
 }
@@ -61,7 +61,7 @@ h1 {
 	margin-bottom: 100px;
 }
 
-.col-sm-3 {
+.col-md-3 {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 100px;
@@ -69,7 +69,7 @@ h1 {
 }
 
 .card {
-	height: 200px;
+	/*height: 200px;*/
 	background-color: #474647;
 }
 
@@ -85,11 +85,9 @@ h1 {
 	}
 }
 
-@media (min-width: 640px) {
-	.col-sm-3 {
-        -webkit-box-flex: 0;
-	    -ms-flex: 0 0 25%;
-	    flex: 0 0 25%;
-	    max-width: 25%;
+@media only screen and (max-width: 960px) {
+	div > img {
+		height: auto;
+		width: 100%;
 	}
 }
