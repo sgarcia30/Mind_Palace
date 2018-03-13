@@ -5,7 +5,7 @@ $('#loginForm').on('submit', function(event) {
 	const pWord = $('#password').val();
 
 	const settings = {
-	url: 'http://localhost:8080/api/auth/login',
+	url: '/api/auth/login',
 	data: JSON.stringify({
 		username: email,
 		password: pWord
