@@ -2,7 +2,7 @@ const userId = localStorage.getItem('userId');
 const listId = localStorage.getItem('listId');
 
 const settings = {
-    url: `http://localhost:8080/api/users/${userId}/lists/${listId}`,
+    url: `/api/users/${userId}/lists/${listId}`,
     dataType: 'json',
     contentType: 'application/json',
     type: 'GET',
@@ -36,7 +36,7 @@ function handleListBuildButton() {
         $('#myList').html('');
 
         const settings = {
-            url: 'http://localhost:8080/api/users/list/build',
+            url: '/api/users/list/build',
             data: JSON.stringify({
                 val: listInput,
                 userId: userId,
@@ -85,7 +85,7 @@ $('ul').on('click', ".list-item", function(event) {
     $(this).toggleClass('list-item__checked');
 
     const settings = {
-        url:`http://localhost:8080/api/users/list/build/item`,
+        url:`/api/users/list/build/item`,
         data: JSON.stringify({
             listId,
             itemId,
@@ -112,7 +112,7 @@ $('ul').on('click', '.list-item-delete', function(event) {
     $(this).parents('li').remove();
 
     const settings = {
-        url: `http://localhost:8080/api/users/${userId}/lists/${listId}/items/${itemIndex}`,
+        url: `/api/users/${userId}/lists/${listId}/items/${itemIndex}`,
         dataType: 'json',
         contentType: 'application/json', 
         type: 'DELETE',

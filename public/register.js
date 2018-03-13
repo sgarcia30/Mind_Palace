@@ -8,7 +8,7 @@ function submitForm() {
 		const pword = $('#password').val();
 
 		const settings = {
-    		url: 'http://localhost:8080/api/auth/register',
+    		url: '/api/auth/register',
     		data: JSON.stringify({
     			firstName: fName,
     			lastName: lName,

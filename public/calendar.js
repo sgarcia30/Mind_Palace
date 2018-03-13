@@ -91,7 +91,7 @@ $(document).ready( function() {
 
     function getEvents() {
         const settings = {
-            url: `http://localhost:8080/api/users/${userId}/calendar`,
+            url: `/api/users/${userId}/calendar`,
             dataType: 'json',
             contentType: 'application/json',
             type: 'GET',
@@ -122,7 +122,7 @@ $(document).ready( function() {
         $('.eventForm')[0].reset();
 
         const settings = {
-            url: 'http://localhost:8080/api/users/calendar',
+            url: '/api/users/calendar',
             data: JSON.stringify({
                 title: eventName,
                 startDate: startDate,
@@ -160,7 +160,7 @@ $(document).ready( function() {
         const userId = localStorage.getItem('userId');
         
         const settings = {
-            url: `http://localhost:8080/api/users/${userId}/calendar/${eventId}`,
+            url: `/api/users/${userId}/calendar/${eventId}`,
             dataType: 'json',
             contentType: 'application/json',
             type: 'DELETE',
@@ -186,7 +186,7 @@ $(document).ready( function() {
 
         // make ajax request to get event info
         const settings = {
-            url: `http://localhost:8080/api/users/${userId}/calendar/${eventId}`,
+            url: `/api/users/${userId}/calendar/${eventId}`,
             dataType: 'json',
             contentType: 'application/json',
             type: 'GET',
@@ -235,7 +235,7 @@ $(document).ready( function() {
         $(this).closest('li').find('.eventTime').html(`Time: ${timeInterval[0]} - ${timeInterval[1]}`);
 
         const settings = {
-            url: `http://localhost:8080/api/users/${userId}/calendar/${eventId}`,
+            url: `/api/users/${userId}/calendar/${eventId}`,
             data: JSON.stringify({
                 title: title,
                 startDate: startDate,

@@ -3,7 +3,7 @@
 const userId = localStorage.getItem('userId');
 
 const settings = {
-	url: `http://localhost:8080/api/users/${userId}/list`,
+	url: `/api/users/${userId}/list`,
 	dataType: 'json',
 	contentType: 'application/json',
 	type: 'GET',
@@ -47,7 +47,7 @@ $('.listVals').on('click', '.delete-list', function()  {
 	$(this).parents('li').remove();
 	
 	const settings = {
-	url: `http://localhost:8080/api/users/${userId}/lists/${listId}`,
+	url: `/api/users/${userId}/lists/${listId}`,
 	dataType: 'json',
 	contentType: 'application/json',
 	type: 'DELETE',
@@ -70,7 +70,7 @@ $('.listForm').on('submit', function(event) {
     const userId = localStorage.getItem('userId');
 
 	const settings = {
-		url: 'http://localhost:8080/api/users/list',
+		url: '/api/users/list',
 		data: JSON.stringify({
 			title: title,
 			date: date,

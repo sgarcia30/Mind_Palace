@@ -103,6 +103,13 @@ input {
   font-family: 'Raleway', sans-serif;
 }
 
+.demo {
+	color: white;
+	font-family: 'Raleway', sans-serif;
+	display:table;
+	margin:0 auto;
+}
+
 @media only screen and (max-width: 640px) {
   input {
   	width: 100%;
