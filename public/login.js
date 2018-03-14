@@ -1,3 +1,4 @@
+// Listener event for user login form
 $('#loginForm').on('submit', function(event) {
 	event.preventDefault();
 
@@ -25,6 +26,5 @@ $('#loginForm').on('submit', function(event) {
 	}
 	}
 
-	// Make call to API with ajax
 	$.ajax(settings);
 })

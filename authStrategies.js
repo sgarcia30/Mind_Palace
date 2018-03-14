@@ -1,3 +1,4 @@
+// Set up authorizarion strategies
 'use strict'
 const { Strategy: LocalStrategy } = require('passport-local');
 

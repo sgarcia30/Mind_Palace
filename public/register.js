@@ -1,3 +1,4 @@
+// Registers the user to the backend
 function submitForm() {
 	$('.registrationForm').on('submit', function (event) {
 		event.preventDefault();
@@ -21,11 +22,11 @@ function submitForm() {
     		success: function(response) {
     			window.location = "login.html";
     		}
-    		}
+    	}
 
-        // Make call to API with ajax
         $.ajax(settings);
 	})
 }
 
+// Calls the submitForm function once the page loads
 $(submitForm);

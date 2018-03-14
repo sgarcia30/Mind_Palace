@@ -1,3 +1,4 @@
+// Sets the users ID and the list ID from the local storage
 const userId = localStorage.getItem('userId');
 const listId = localStorage.getItem('listId');
 
@@ -11,9 +12,10 @@ const settings = {
     },
     success: displayListItems
 }
-// should this be at the bottome of the file?
+
 $.ajax(settings);
 
+// Displays the list items in the UI
 function displayListItems(data) {
     const listItems = data.items;
     listItems.forEach(item => {
@@ -22,6 +24,7 @@ function displayListItems(data) {
     })
 }
 
+// Renders the list title in the navbar
 function renderListTitle() {
     const listTitle = localStorage.getItem('listTitle');
     $('.title').html(`Mind Palace -<br class='res-break'> ${listTitle}`);
@@ -29,6 +32,7 @@ function renderListTitle() {
     handleListBuildButton();
 }
 
+// When a new item is added to the list it sends the item to the backend
 function handleListBuildButton() {
     $('.listBuildForm').on('submit', function(event) {
         event.preventDefault();
@@ -66,6 +70,7 @@ function handleListBuildButton() {
     });
 }
 
+// Renders given list input to the UI on page load
 function renderListInput(listInput) {
     if (listInput.complete) {
         return `
@@ -77,9 +82,9 @@ function renderListInput(listInput) {
             <li class="list-item" data-itemId="${listInput.itemId}" data-name="${listInput.item}"><br class='res-break'><button class="list-item-delete">Delete</button><div class="listVal">${listInput.item}</div></li>
         `;
     }
-
 }
 
+// When an item is checked off it sends that info to the backend
 $('ul').on('click', ".list-item", function(event) {
     const itemId = $(this).attr('data-itemId');
     $(this).toggleClass('list-item__checked');
@@ -105,10 +110,10 @@ $('ul').on('click', ".list-item", function(event) {
     $.ajax(settings);
 });
 
+// An event listener to delete an item from the list
 $('ul').on('click', '.list-item-delete', function(event) {
     const listItem = $(this).closest('li').attr("data-name");
     const itemIndex = $(this).closest('li').index();
-    console.log(itemIndex);
     $(this).parents('li').remove();
 
     const settings = {
@@ -127,4 +132,5 @@ $('ul').on('click', '.list-item-delete', function(event) {
     $.ajax(settings);
 });
 
+// Calls the renderListTitle function on page load
 $(renderListTitle);

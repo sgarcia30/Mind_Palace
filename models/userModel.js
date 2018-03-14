@@ -1,3 +1,4 @@
+// User model
 'use strict';
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
@@ -67,6 +68,7 @@ const UserSchema = mongoose.Schema({
 	logs: Array
 });
 
+// Serializes the user info to send to the frontend
 UserSchema.methods.serialize = function () {
 	return {
 		email: this.email || '',
@@ -75,14 +77,18 @@ UserSchema.methods.serialize = function () {
 	};
 };
 
+// Validates the user password
 UserSchema.methods.validatePassword = function(password) {
 	return bcrypt.compare(password, this.password);
 };
 
+// Creates a hash of the user password to be stored in the backend
 UserSchema.statics.hashPassword = function(password) {
 	return bcrypt.hash(password, 10);
 };
 
+// Creates the name and setup for the user model
 const User = mongoose.model('User', UserSchema);
 
+// Exports the user model
 module.exports = {User};

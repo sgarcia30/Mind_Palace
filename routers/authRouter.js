@@ -1,15 +1,18 @@
 'use strict'
-
+// Import desired elements and methods and files
 const express = require('express');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 
+// Configure routers
 const config = require('../config');
 const router = express.Router();
 
+// Import user model
 const {User} = require('../models/userModel');
 
+// Create the JWT token once logged in
 const createAuthToken = function(user) {
 	return jwt.sign({user}, config.JWT_SECRET, {
 		subject: user.email,
@@ -18,14 +21,18 @@ const createAuthToken = function(user) {
 	});
 };
 
+// Setup the local authorizarion variable
 const localAuth = passport.authenticate('local', {session: false});
+// Tell the router to use body parser
 router.use(bodyParser.json());
 
+// Post end point for the user to log in
 router.post('/login', localAuth, (req, res) => {
 	const authToken = createAuthToken(req.user.serialize());
 	res.json({authToken, userId: req.user._id});
 });
 
+// Set up the JWT authorization variable
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
 // Post to register a new user
@@ -75,4 +82,5 @@ router.post('/register', (req, res) => {
 		});
 });
 
+// Export the router
 module.exports = {router};

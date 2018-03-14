@@ -7,23 +7,26 @@
     <link rel="icon" href="/images/castle5.png">
     <link href="register.css" rel="stylesheet" type="text/css" />
   </head>
+
   <body>
+    <!-- Registration form -->
   	<section role="region" class="form">
-	  <div class="FormBox">
-		<form class="registrationForm">
-		  <fieldset name="register">
-			  <legend>Register</legend>
-			  	<label for="firstName">First Name</label>
-			  	<input placeholder="first name" type="text" name="firstName" id="firstName" required/>
-			  	<label for="lastName">Last Name</label>
-			  	<input placeholder="last name" type="text" name="lastName" id="lastName" required/>
-		  	  <label for="email">Email</label>
-		  	  <input placeholder="email" type="text" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required/>
-		  	  <label for="password">Password</label>
-		  	  <input placeholder="password" type="password" name="password" id="password" required/>
-  		  </fieldset>
-  		  <button class='button'>Register</button>
-	    </form>
+  	  <div class="FormBox">
+    		<form class="registrationForm">
+    		  <fieldset name="register">
+    			  <legend>Register</legend>
+  			  	<label for="firstName">First Name</label>
+  			  	<input placeholder="first name" type="text" name="firstName" id="firstName" required/>
+  			  	<label for="lastName">Last Name</label>
+  			  	<input placeholder="last name" type="text" name="lastName" id="lastName" required/>
+  		  	  <label for="email">Email</label>
+  		  	  <input placeholder="email" type="text" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required/>
+  		  	  <label for="password">Password</label>
+  		  	  <input placeholder="password" type="password" name="password" id="password" required/>
+      		</fieldset>
+      		<button class='button'>Register</button>
+  	    </form>
+      </div>
   	</section>
 
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

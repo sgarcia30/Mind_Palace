@@ -8,8 +8,9 @@
     <link rel="icon" href="/images/castle5.png" alt='mind-palace'>
     <link href="lists.css" rel="stylesheet" type="text/css" />
   </head>
-  <body>
 
+  <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
       <a class="navbar-brand" href="#">
       <img src="/images/api-logo3.png" width="50" height="50" alt="logo">
@@ -34,7 +35,9 @@
       </div>
     </nav>
 
+    <!-- Main page content -->
     <main role="main">
+      <!-- Shows users created lists -->
       <section class="lists">
         <div class="list">
           <h2>My Lists:</h2>
@@ -46,6 +49,7 @@
       </button>  
         </div>
       </section> 
+      <!-- Modal for creating a new list -->
       <div id='createList' class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -80,6 +84,5 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="lists.js"></script>
     <script src="logout.js"></script>
-
   </body>
 </html>

@@ -10,9 +10,9 @@ $(document).ready( function() {
 
     // Calendar setup
     calendars.clndr1 = $('.cal1').clndr({
+        // Shows calendar events for the day clicked on
         clickEvents: {
             click: function (target) {
-                console.log(target.events);
                 $('.listEvents').html('');
                 $('#eventDetails').modal('toggle');
                 $('#dayEventDate').html(`${moment(target.date._d).format('ddd MMM DD YYYY')}`)
@@ -73,6 +73,7 @@ $(document).ready( function() {
         adjacentDaysChangeMonth: false
     });
 
+    // Converts time from 24hr to 12 hr
     function from24hrto12hrTime(startTime, endTime) {
         let timeStart = startTime;
         let timeEnd = endTime;
@@ -89,6 +90,7 @@ $(document).ready( function() {
         return timeInterval;
     }
 
+    // Makes an ajax request to the backend for all calendar events
     function getEvents() {
         const settings = {
             url: `/api/users/${userId}/calendar`,
@@ -99,8 +101,6 @@ $(document).ready( function() {
                 console.log(error);
             },
             success: function(events) {
-                console.log(events);
-                console.log(calendars.clndr1);
                 calendars.clndr1.setEvents(events);
             }
         }
@@ -156,7 +156,6 @@ $(document).ready( function() {
 
         localStorage.setItem('eventId', eventId);
         $(this).closest('li').remove();
-        console.log(eventId);
         const userId = localStorage.getItem('userId');
         
         const settings = {
@@ -199,10 +198,8 @@ $(document).ready( function() {
         $.ajax(settings);
     })
 
-    // show a div with inputs using jQuery (on the current modal)
+    // Shows a div with inputs using jQuery (on the current modal)
     function renderEventDetailstoEdit(eventDetails) {
-        // input details into the the div (like a form)
-        // populate event details with relevant data
         $('.editEventId').val(eventDetails.eventId);
         $('.eventNameUpdate').val(eventDetails.title);
         $('.startDateUpdate').val(eventDetails.startDate);
@@ -211,9 +208,8 @@ $(document).ready( function() {
         $('.endTimeUpdate').val(eventDetails.endTime);
     }
 
-    // listen for the form to be submitted
-    // get data submitted
-    // create ajax call to send it over
+    // Listen event for the form submission
+    // Then sends the updated event details to the backend
     $('.listEvents').on('submit', '.updateEventForm', function(event) {
         event.preventDefault();
 
@@ -250,7 +246,6 @@ $(document).ready( function() {
                 console.log(error);
             },
             success: function(response) {
-                // calendars.clndr1.removeEvents();
                 getEvents();
             }
         }

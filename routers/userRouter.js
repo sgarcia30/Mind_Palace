@@ -1,4 +1,5 @@
 'use strict';
+// Import desired elements, methods, files, routers, and user model
 const express = require('express');
 const bodyParser = require('body-parser');
 const uuidv1 = require('uuid/v1');
@@ -7,11 +8,10 @@ const path = require('path');
 
 const router = express.Router();
 
-// do I need this line of code?
 const jsonParser = bodyParser.json();
-
 router.use(bodyParser.json());
 
+// GET endpoint for getting the desired user
 router.get('/', (req, res) => {
 	return User.find()
 	  .then(users => res.json(users.map(user => user.serialize())))
@@ -20,6 +20,7 @@ router.get('/', (req, res) => {
 	  }));
 });
 
+// PUT endpoint for adding a list to the user
 router.put('/list', (req, res) => {
 	const list = {
 	    title: req.body.title,
@@ -55,6 +56,7 @@ router.put('/list', (req, res) => {
 	})
 });
 
+// POST endpoint for adding items to a specific list
 router.post('/list/build', (req, res) => {
 	const listVal = {item: req.body.val, complete: false, itemId: uuidv1()};
 
@@ -63,7 +65,6 @@ router.post('/list/build', (req, res) => {
 		{$push: {"lists.$.items": listVal}},
 		{new: true})
 	.then(user => {
-		// console.log('User ====', user);
 		res.status(200).json(user);
 	})
 	.catch(err => {
@@ -72,9 +73,7 @@ router.post('/list/build', (req, res) => {
 	})
 })
 
-// * Inside the end point we need to write the logic
-// to update the items complete property from false to true 
-// ie opposite of what it was when a user clicked on it.
+// PUT end point for setting a list item as complete/incomplete
 router.put('/list/build/item', (req, res) => {
 
         User.findOne({_id: req.body.userId}, (error, user) => {
@@ -91,6 +90,7 @@ router.put('/list/build/item', (req, res) => {
         })
 })
 
+// GET endpoint for getting a specific list with its items
 router.get('/:userId/lists/:listId', (req, res) => {
 	User
 	.findOne({_id: req.params.userId})
@@ -107,6 +107,7 @@ router.get('/:userId/lists/:listId', (req, res) => {
 	})
 })
 
+// GET endpoint for getting a users lists
 router.get('/:userId/list', (req, res) => {
 	User
 	.findOne({_id: req.params.userId})
@@ -115,6 +116,7 @@ router.get('/:userId/list', (req, res) => {
 	})
 })
 
+// DELETE endpoint for deleting a specific list
 router.delete('/:userId/lists/:listId', (req, res) => {
 	User
 	.findOneAndUpdate({_id: req.params.userId},
@@ -129,6 +131,7 @@ router.delete('/:userId/lists/:listId', (req, res) => {
 	})
 })
 
+// DELETE endpoint for deleting a specific item from a list
 router.delete('/:userId/lists/:listId/items/:itemIndex', (req, res) => {
 	const userId = req.params.userId;
 	const listId = req.params.listId;
@@ -154,6 +157,7 @@ router.delete('/:userId/lists/:listId/items/:itemIndex', (req, res) => {
 	})
 })
 
+// POST endpoint for adding an event to the user's calendar
 router.post('/calendar', (req, res) => {
 	console.log(req.body.endDate);
 	if (req.body.endDate === '') {
@@ -174,7 +178,6 @@ router.post('/calendar', (req, res) => {
 		{$push: {events: event}},
 		{new: true})
 	.then(user => {
-		console.log(user)
 		res.status(200).json(user)
 	})
 	.catch(err => {
@@ -183,12 +186,12 @@ router.post('/calendar', (req, res) => {
 	})
 })
 
+// GET endpoint for getting a user's calendar events
 router.get('/:userId/calendar', (req, res) => {
 	User
 	.findOne({_id: req.params.userId})
 	.then(user => {
 		const events = user.events;
-		console.log(events);
 		res.json(events);
 	})
 	.catch(err => {
@@ -197,6 +200,7 @@ router.get('/:userId/calendar', (req, res) => {
 	})
 })
 
+// DELETE endpoint for deleting a calendar event
 router.delete('/:userId/calendar/:eventId', (req, res) => {
 	const userId = req.params.userId;
 	const eventId = req.params.eventId;
@@ -214,6 +218,7 @@ router.delete('/:userId/calendar/:eventId', (req, res) => {
 	})
 })
 
+// GET endpoint for getting a specific user event
 router.get('/:userId/calendar/:eventId', (req, res) => {
 	User
 	.findOne({_id: req.params.userId})
@@ -230,7 +235,7 @@ router.get('/:userId/calendar/:eventId', (req, res) => {
 	})	
 })
 
-// set-up an edit end point to update the data coming from the ajax
+// PUT endpoint for editing a user event
 router.put('/:userId/calendar/:eventId', (req, res) => {
 	const event = {
 	    title: req.body.title,
@@ -254,4 +259,5 @@ router.put('/:userId/calendar/:eventId', (req, res) => {
 	})
 })
 
+// Export router
 module.exports = {router};
