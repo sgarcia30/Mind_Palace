@@ -24,7 +24,7 @@ Create Lists:
 Mind Palace's list creation capabilities allow you to store your titles, to-do lists, and organize the clutter
 in your brain.
 
-Create Calender Events:
+Create Calendar Events:
 Mind Palace allows you to store your calendar events, so your schedule is readily available.
  
  #Technology Used
